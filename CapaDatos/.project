@@ -14,4 +14,16 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>CapaEntidades</name>
+			<type>2</type>
+			<location>C:/Users/User/git/proyectoEncomienda/CapaEntidades/src</location>
+		</link>
+		<link>
+			<name>CapaNegocio</name>
+			<type>2</type>
+			<location>C:/Users/User/git/proyectoEncomienda/CapaNegocio/src</location>
+		</link>
+	</linkedResources>
 </projectDescription>

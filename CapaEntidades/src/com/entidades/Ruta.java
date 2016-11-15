@@ -4,48 +4,48 @@ import java.math.BigDecimal;
 
 public class Ruta {
 	
-	private int id;
-	private BigDecimal precio;
-	private int diasDemora;
-	private Boolean estado;
-	private Ciudad ciudadOrigen;
-	private Ciudad ciudadDestino;
+	private int idRuta;
+	private BigDecimal precioRuta;
+	private int diasDemoraRuta;
+	private Boolean estadoRuta;
+	private Ciudad ciudadOrigenRuta;
+	private Ciudad ciudadDestinoRuta;
 	
-		public int getId() {
-		return id;
+	public int getIdRuta() {
+		return idRuta;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setIdRuta(int idRuta) {
+		this.idRuta = idRuta;
 	}
-	public BigDecimal getPrecio() {
-		return precio;
+	public BigDecimal getPrecioRuta() {
+		return precioRuta;
 	}
-	public void setPrecio(BigDecimal precio) {
-		this.precio = precio;
+	public void setPrecioRuta(BigDecimal precioRuta) {
+		this.precioRuta = precioRuta;
 	}
-	public int getDiasDemora() {
-		return diasDemora;
+	public int getDiasDemoraRuta() {
+		return diasDemoraRuta;
 	}
-	public void setDiasDemora(int diasDemora) {
-		this.diasDemora = diasDemora;
+	public void setDiasDemoraRuta(int diasDemoraRuta) {
+		this.diasDemoraRuta = diasDemoraRuta;
 	}
-	public Boolean getEstado() {
-		return estado;
+	public Boolean getEstadoRuta() {
+		return estadoRuta;
 	}
-	public void setEstado(Boolean estado) {
-		this.estado = estado;
+	public void setEstadoRuta(Boolean estadoRuta) {
+		this.estadoRuta = estadoRuta;
 	}
-	public Ciudad getCiudadOrigen() {
-		return ciudadOrigen;
+	public Ciudad getCiudadOrigenRuta() {
+		return ciudadOrigenRuta;
 	}
-	public void setCiudadOrigen(Ciudad ciudadOrigen) {
-		this.ciudadOrigen = ciudadOrigen;
+	public void setCiudadOrigenRuta(Ciudad ciudadOrigenRuta) {
+		this.ciudadOrigenRuta = ciudadOrigenRuta;
 	}
-	public Ciudad getCiudadDestino() {
-		return ciudadDestino;
+	public Ciudad getCiudadDestinoRuta() {
+		return ciudadDestinoRuta;
 	}
-	public void setCiudadDestino(Ciudad ciudadDestino) {
-		this.ciudadDestino = ciudadDestino;
+	public void setCiudadDestinoRuta(Ciudad ciudadDestinoRuta) {
+		this.ciudadDestinoRuta = ciudadDestinoRuta;
 	}
 	
 	
