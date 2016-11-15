@@ -48,17 +48,17 @@
 		<link>
 			<name>CapaDatos</name>
 			<type>2</type>
-			<locationURI>WORKSPACE_LOC/CapaDatos/src</locationURI>
+			<location>D:/git/proyectoEncomienda/CapaDatos/src</location>
 		</link>
 		<link>
 			<name>CapaEntidades</name>
 			<type>2</type>
-			<locationURI>WORKSPACE_LOC/CapaEntidades/src</locationURI>
+			<location>D:/git/proyectoEncomienda/CapaEntidades/src</location>
 		</link>
 		<link>
 			<name>CapaNegocio</name>
 			<type>2</type>
-			<locationURI>WORKSPACE_LOC/CapaNegocio/src</locationURI>
+			<location>D:/git/proyectoEncomienda/CapaNegocio/src</location>
 		</link>
 	</linkedResources>
 </projectDescription>

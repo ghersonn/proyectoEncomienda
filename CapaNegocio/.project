@@ -18,12 +18,12 @@
 		<link>
 			<name>CapaDatos</name>
 			<type>2</type>
-			<locationURI>CarpetaGit/CapaDatos/src</locationURI>
+			<location>D:/git/proyectoEncomienda/CapaDatos/src</location>
 		</link>
 		<link>
 			<name>CapaEntidades</name>
 			<type>2</type>
-			<locationURI>CarpetaGit/CapaEntidades</locationURI>
+			<location>D:/git/proyectoEncomienda/CapaEntidades/src</location>
 		</link>
 	</linkedResources>
 	<variableList>
