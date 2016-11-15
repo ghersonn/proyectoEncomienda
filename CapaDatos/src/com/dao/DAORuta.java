@@ -11,7 +11,7 @@ import com.entidades.Ruta;
 
 public class DAORuta {
 	
-	// Singleton
+	  // Singleton
 		public static DAORuta _Instancia;
 
 		private DAORuta() {};
@@ -23,8 +23,9 @@ public class DAORuta {
 			return _Instancia;
 		}
      //endSingleton
-		
-		/*public ArrayList<Ruta> listarRuta() throws Exception{
+	
+	//Metodos
+		public ArrayList<Ruta> listarRuta() throws Exception{
 			
 			Connection connection = DAOConexion.Instancia().conectar();
 			ArrayList<Ruta> listRuta = new ArrayList<Ruta>();
@@ -37,17 +38,17 @@ public class DAORuta {
 					
 					Ciudad objCiudadOrigen = new Ciudad();
 					objCiudadOrigen.setIdCiudad(resultSet.getInt("idCiudadOrigen"));
-					objCiudadOrigen.setNombreCiudad(resultSet.getString("CiudadOrigen"));
+					objCiudadOrigen.setNombreCiudad(resultSet.getString("nombreCiudadOrigen"));
 					
 					
 					Ciudad objCiudadDestino = new Ciudad();
-					objCiudadDestino.setId(resultSet.getInt("idCiudadDestino"));
-					objCiudadDestino.setNombre(resultSet.getString("CiudadDestino"));
+					objCiudadDestino.setIdCiudad(resultSet.getInt("idCiudadDestino"));
+					objCiudadDestino.setNombreCiudad(resultSet.getString("nombreCiudadDestino"));
 					
 					Ruta objRuta = new Ruta();
-					objRuta.setId(resultSet.getInt("id"));
-					objRuta.setPrecio(resultSet.getBigDecimal("precio"));
-					objRuta.setDiasDemora(resultSet.getInt("diasDemora"));
+					objRuta.setIdRuta(resultSet.getInt("idRuta"));
+					objRuta.setPrecioRuta(resultSet.getBigDecimal("precioRuta"));
+					objRuta.setDiasDemoraRuta(resultSet.getInt("diasDemoraRuta"));
 					objRuta.setCiudadOrigen(objCiudadOrigen);
 					objRuta.setCiudadDestino(objCiudadDestino);
 					
@@ -60,6 +61,113 @@ public class DAORuta {
 				connection.close();
 			}
 			return listRuta;
-		}*/
+		}
+		
+		public Ruta obtenerRuta(int idRuta) throws Exception {
+			Connection connection = DAOConexion.Instancia().conectar();
+			Ruta objRuta = null;
+			try {
+				CallableStatement callableStatement = connection.prepareCall("{call BUS_Ruta(?)}");
+				
+				callableStatement.setInt(1, idRuta);
+				ResultSet resultSet = callableStatement.executeQuery();
+				
+				if (resultSet.next()) {
+					
+					Ciudad objCiudadOrigen = new Ciudad();
+					objCiudadOrigen.setIdCiudad(resultSet.getInt("idCiudadOrigen"));
+					objCiudadOrigen.setNombreCiudad(resultSet.getString("nombreCiudadOrigen"));
+					
+					
+					Ciudad objCiudadDestino = new Ciudad();
+					objCiudadDestino.setIdCiudad(resultSet.getInt("idCiudadDestino"));
+					objCiudadDestino.setNombreCiudad(resultSet.getString("nombreCiudadDestino"));
+					
+					objRuta = new Ruta();
+					objRuta.setIdRuta(resultSet.getInt("idRuta"));
+					objRuta.setPrecioRuta(resultSet.getBigDecimal("precioRuta"));
+					objRuta.setDiasDemoraRuta(resultSet.getInt("diasDemoraRuta"));
+					objRuta.setCiudadOrigen(objCiudadOrigen);
+					objRuta.setCiudadDestino(objCiudadDestino);
+					
+				}
+				
+			} catch (Exception e) {
+				throw e;
+			} finally {
+				connection.close();
+			}
+			return objRuta;
+		}
+		
+		public Boolean insertarRuta(Ruta objRuta) throws Exception {
+			Connection connection = DAOConexion.Instancia().conectar();
+			Boolean respuesta=false;
+			try {
+				
+				CallableStatement callableStatement = connection.prepareCall("{call REG_InsRuta(?,?,?,?)}");
+				callableStatement.setBigDecimal(1, objRuta.getPrecioRuta());
+				callableStatement.setInt(2, objRuta.getDiasDemoraRuta());
+				callableStatement.setInt(3, objRuta.getCiudadOrigen().getIdCiudad());
+				callableStatement.setInt(4, objRuta.getCiudadDestino().getIdCiudad());
+
+				int i = callableStatement.executeUpdate();
+
+				if (i > 0)	respuesta = true;
+
+			} catch (Exception e) {
+				throw e;
+			} finally {
+				connection.close();
+			}
+			return respuesta;
+		}
+		
+		public Boolean modificarRuta(Ruta objRuta) throws Exception {
+			Connection connection = DAOConexion.Instancia().conectar();
+			Boolean respuesta=false;
+			try {
+						
+				CallableStatement callableStatement = connection.prepareCall("{call ACT_Ruta(?,?,?,?,?)}");
+				callableStatement.setInt(1, objRuta.getIdRuta());
+				callableStatement.setBigDecimal(2, objRuta.getPrecioRuta());
+				callableStatement.setInt(3, objRuta.getDiasDemoraRuta());
+				callableStatement.setInt(4, objRuta.getCiudadOrigen().getIdCiudad());
+				callableStatement.setInt(5, objRuta.getCiudadDestino().getIdCiudad());
+
+				int i = callableStatement.executeUpdate();
+
+				if (i > 0)	respuesta = true;
+
+			} catch (Exception e) {
+				throw e;
+			} finally {
+				connection.close();
+			}
+			return respuesta;
+		}
+		
+		public Boolean eliminarRuta(int idRuta) throws Exception {
+			Connection connection = DAOConexion.Instancia().conectar();
+			Boolean respuesta=false;
+			try {
+				
+								
+				CallableStatement callableStatement = connection.prepareCall("{call ACT_RutaEstado(?)}");
+				
+				callableStatement.setInt(1, idRuta);
+
+				int i = callableStatement.executeUpdate();
+
+				if (i > 0)	respuesta= true;
+				
+			} catch (Exception e) {
+				throw e;
+			} finally {
+				connection.close();
+			}
+			return respuesta;
+		}
+
 
 }

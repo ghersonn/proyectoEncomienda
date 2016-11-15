@@ -8,8 +8,8 @@ public class Ruta {
 	private BigDecimal precioRuta;
 	private int diasDemoraRuta;
 	private Boolean estadoRuta;
-	private Ciudad ciudadOrigenRuta;
-	private Ciudad ciudadDestinoRuta;
+	private Ciudad ciudadOrigen;
+	private Ciudad ciudadDestino;
 	
 	public int getIdRuta() {
 		return idRuta;
@@ -35,17 +35,17 @@ public class Ruta {
 	public void setEstadoRuta(Boolean estadoRuta) {
 		this.estadoRuta = estadoRuta;
 	}
-	public Ciudad getCiudadOrigenRuta() {
-		return ciudadOrigenRuta;
+	public Ciudad getCiudadOrigen() {
+		return ciudadOrigen;
 	}
-	public void setCiudadOrigenRuta(Ciudad ciudadOrigenRuta) {
-		this.ciudadOrigenRuta = ciudadOrigenRuta;
+	public void setCiudadOrigen(Ciudad ciudadOrigen) {
+		this.ciudadOrigen = ciudadOrigen;
 	}
-	public Ciudad getCiudadDestinoRuta() {
-		return ciudadDestinoRuta;
+	public Ciudad getCiudadDestino() {
+		return ciudadDestino;
 	}
-	public void setCiudadDestinoRuta(Ciudad ciudadDestinoRuta) {
-		this.ciudadDestinoRuta = ciudadDestinoRuta;
+	public void setCiudadDestino(Ciudad ciudadDestino) {
+		this.ciudadDestino = ciudadDestino;
 	}
 	
 	
