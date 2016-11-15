@@ -6,13 +6,25 @@ public class Usuario {
 
 	private int idUsuario;
 	private String userNameUsuario;
-	private String contrasenioUsuario;
+	private String contraseniaUsuario;
 	private String nombreUsuario;
 	private String apellidoUsuario;
 	private String telefonoUsuario;
 	private String dniUsuario;
 	private Boolean estadoUsuario;
 	private List<Permiso> listPermisoUsuario;
+	
+	private Usuario objUsuario;
+	
+	
+	
+	public Usuario getObjUsuario() {
+		return objUsuario;
+	}
+	public void setObjUsuario(Usuario objUsuario) {
+		this.objUsuario = objUsuario;
+	}
+	
 	
 	public int getIdUsuario() {
 		return idUsuario;
@@ -26,11 +38,11 @@ public class Usuario {
 	public void setUserNameUsuario(String userNameUsuario) {
 		this.userNameUsuario = userNameUsuario;
 	}
-	public String getContrasenioUsuario() {
-		return contrasenioUsuario;
+	public String getContraseniaUsuario() {
+		return contraseniaUsuario;
 	}
-	public void setContrasenioUsuario(String contrasenioUsuario) {
-		this.contrasenioUsuario = contrasenioUsuario;
+	public void setContraseniaUsuario(String contrasenioUsuario) {
+		this.contraseniaUsuario = contrasenioUsuario;
 	}
 	public String getNombreUsuario() {
 		return nombreUsuario;
