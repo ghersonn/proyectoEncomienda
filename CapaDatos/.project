@@ -18,7 +18,7 @@
 		<link>
 			<name>CapaEntidades</name>
 			<type>2</type>
-			<location>C:/Users/User/git/proyectoEncomienda/CapaEntidades/src</location>
+			<locationURI>CarpetaGit/CapaEntidades/src</locationURI>
 		</link>
 		<link>
 			<name>CapaNegocio</name>
@@ -26,4 +26,10 @@
 			<location>C:/Users/User/git/proyectoEncomienda/CapaNegocio/src</location>
 		</link>
 	</linkedResources>
+	<variableList>
+		<variable>
+			<name>CarpetaGit</name>
+			<value>file:/D:/git/proyectoEncomienda</value>
+		</variable>
+	</variableList>
 </projectDescription>
