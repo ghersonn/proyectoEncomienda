@@ -1,5 +1,7 @@
 package com.entidades;
 
+import java.util.List;
+
 public class Usuario {
 
 	private int idUsuario;
@@ -10,6 +12,7 @@ public class Usuario {
 	private String telefonoUsuario;
 	private String dniUsuario;
 	private Boolean estadoUsuario;
+	private List<Permiso> listPermisoUsuario;
 	
 	public int getIdUsuario() {
 		return idUsuario;
@@ -60,9 +63,10 @@ public class Usuario {
 		this.estadoUsuario = estadoUsuario;
 	}
 	
-	
-	
-	
-	
-	
+	public List<Permiso> getListPermisoUsuario() {
+		return listPermisoUsuario;
+	}
+	public void setListPermisoUsuario(List<Permiso> listPermisoUsuario) {
+		this.listPermisoUsuario = listPermisoUsuario;
+	}
 }
