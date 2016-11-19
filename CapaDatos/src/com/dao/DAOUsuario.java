@@ -26,7 +26,7 @@ public class DAOUsuario {
 		try {
 			cn = DAOConexion.Instancia().conectar();
 			CallableStatement cst = cn.prepareCall("{call SEG_VerificarAcceso(?,?)}");
-			
+
 			/*
 			 *	@prmstrUsuario varchar(30), 
 				@prmstrPassword varchar(30) 

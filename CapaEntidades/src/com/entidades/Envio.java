@@ -149,6 +149,14 @@ public class Envio {
 		this.listPaquete.add(p);
 	}
 	
+	public BigDecimal getMontoDescuento() {
+		return montoDescuento;
+	}
+
+	public void setMontoDescuento(BigDecimal montoDescuento) {
+		this.montoDescuento = montoDescuento;
+	}
+	
 	public void actualizarPrecioPaquete(){
 		for (Paquete paquete : listPaquete) {
 			BigDecimal precio = paquete.pesoPaquete.multiply(rutaEnvio.getPrecioRuta());
@@ -163,15 +171,17 @@ public class Envio {
 			precioTotal= precioTotal.add(paquete.getPrecioPaquete());	
 		}
 		montoTotalEnvio = precioTotal.setScale(2, RoundingMode.HALF_UP);
+		actualizarDescuento();
 	}
 	
-	//public void actualizarDescuento(){
-	//	int numeroPaquete = listPaquete.size();
-	//	
-	//	if()
-	//	
-	//	montoTotalEnvio = precioTotal.setScale(2, RoundingMode.HALF_UP);
-	//}
+	public void actualizarDescuento(){
+		int numeroPaquete = listPaquete.size();
+		
+		if(numeroPaquete>2){
+			montoDescuento = montoTotalEnvio.setScale(2, RoundingMode.HALF_UP).multiply(new BigDecimal(0.10).setScale(2, RoundingMode.HALF_UP));
+			montoTotalEnvio = montoTotalEnvio.setScale(2, RoundingMode.HALF_UP).subtract(montoDescuento.setScale(2, RoundingMode.HALF_UP));
+		}
+	}
 	
 	
 	

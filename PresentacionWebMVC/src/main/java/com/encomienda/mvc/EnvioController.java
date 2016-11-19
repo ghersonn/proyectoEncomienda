@@ -21,6 +21,8 @@ import com.entidades.Paquete;
 import com.entidades.Ruta;
 import com.entidades.Usuario;
 import com.entidades.Viaje;
+import com.negocio.NEGEnvio;
+import com.negocio.NEGRuta;
 
 @SessionAttributes("objEnvio")
 @Controller
@@ -100,13 +102,21 @@ public class EnvioController {
 	   
 	  //Data referencing for java skills list box
 	  Map<String,String> ruta = new LinkedHashMap<String,String>();
-	  ruta.put("1", "trujillo - cajamarca");
-	  ruta.put("2", "trujillo - Tumbes");
-	  ruta.put("3", "trujillo - Piura");
-	  ruta.put("4", "trujillo - Tacna");
-	   
+	  
+	  try {
+		  ArrayList<Ruta> listRuta = NEGRuta.Instancia().listarRuta();
+		  
+		  for (Ruta objRuta : listRuta) {
+			  ruta.put(""+objRuta.getIdRuta()+"", ""+objRuta.getCiudadOrigen().getNombreCiudad()+" - "+objRuta.getCiudadDestino().getNombreCiudad()+"");
+		  }
+		
+	  } catch (Exception e) {
+		  // TODO: handle exception
+		  ruta.put("0", "-");
+	  }
 	  return ruta;
 	 }
+	 
 	@RequestMapping(value = "/AsignarRuta", method = RequestMethod.POST)
 	public String AsignarRuta(@ModelAttribute("objEnvio")Envio e,
 			@ModelAttribute("modelRuta")Ruta r, 
@@ -114,9 +124,12 @@ public class EnvioController {
 		try {
 			
 			//Hacer busqueda de Ruta por Id
-			if(r.getIdRuta()<=2) r.setPrecioRuta(new BigDecimal(2.00)); //Le asigno un precio temporal
-			else r.setPrecioRuta(new BigDecimal(3.00)); //Le asigno un precio temporal
-			e.rutaEnvio = r;
+			//if(r.getIdRuta()<=2) r.setPrecioRuta(new BigDecimal(2.00)); //Le asigno un precio temporal
+			//else r.setPrecioRuta(new BigDecimal(3.00)); //Le asigno un precio temporal
+			//e.rutaEnvio = r;
+			
+			e.rutaEnvio = NEGRuta.Instancia().obtenerRuta(r.getIdRuta());
+			
 			e.actualizarPrecioPaquete(); //actalizarPrecioPaquete
 			e.actualizarTotal(); //actualizar Total
 			
@@ -165,6 +178,36 @@ public class EnvioController {
 			model.addAttribute("error", ex.getMessage());
 			model.addAttribute("cmdUsuario", new Usuario());			
 			return "login";
+		}
+	}
+	
+	@RequestMapping(value = "/Enviar", method = RequestMethod.POST)
+	public String Enviar(@ModelAttribute("objEnvio")Envio e, 
+			ModelMap model){
+		try {
+			NEGEnvio.Instancia().enviar(e);
+			//sesion usuario
+			return "principal";
+			
+		} catch (ArithmeticException ex) {
+			model.addAttribute("error", ex.getMessage());
+			
+			model.addAttribute("objEnvio", e);
+			model.addAttribute("modelRemitente", e.remitenteEnvio);
+			model.addAttribute("modelDestinatario", e.destinatarioEnvio);
+			model.addAttribute("modelPaquete", new Paquete());
+			model.addAttribute("modelRuta", e.rutaEnvio);			
+			return "enviar";
+			
+		} catch (Exception ex) {
+			model.addAttribute("error", ex.getMessage());
+			
+			model.addAttribute("objEnvio", e);
+			model.addAttribute("modelRemitente", e.remitenteEnvio);
+			model.addAttribute("modelDestinatario", e.destinatarioEnvio);
+			model.addAttribute("modelPaquete", new Paquete());
+			model.addAttribute("modelRuta", e.rutaEnvio);			
+			return "enviar";
 		}
 	}
 	

@@ -10,7 +10,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
-
+	<h3 style="color:red" >${error}</h3>
 	<frm:form method="POST" action="VerificarRemitente" modelAttribute="modelRemitente" commandName="modelRemitente">
 		<frm:label path="dniCliente">DNI Remitente</frm:label>
 		<frm:input path="dniCliente"/>
@@ -73,16 +73,24 @@
 	
 	SubTotal:<div id="subTotal"></div>
 	IGV:<div id="igv"></div>
+	Descuento(10%):<div id="descuento"></div>
 	Total:<div id="total"></div>
 	
 	<script type="text/javascript">
+		var descuento = ${objEnvio.montoDescuento};
+	    descuento = parseFloat(descuento).toFixed(2);
+	    
 	    var total = ${objEnvio.montoTotalEnvio};
 	    total = parseFloat(total).toFixed(2);
+	    total = (parseFloat(total)+parseFloat(descuento));
+	    
 	    var igv = parseFloat(total * 0.18).toFixed(2);
 	    var subTotal = parseFloat(total - igv).toFixed(2);
-		$("#total").html(total);
+	    
 		$("#subTotal").html(subTotal);
 		$("#igv").html(igv);
+		$("#descuento").html('-'+descuento);
+		$("#total").html((parseFloat(total)-parseFloat(descuento)).toFixed(2));
 	</script>
 </body>
 </html>
