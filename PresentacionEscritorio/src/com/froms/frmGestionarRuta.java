@@ -14,15 +14,20 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.dao.DAOCiudad;
+import com.dao.DAORuta;
 import com.entidades.Ciudad;
 import com.entidades.Ruta;
 import com.negocio.NEGCiudad;
 import com.negocio.NEGRuta;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -31,7 +36,7 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class frmGestionarRuta extends JInternalFrame {
-	private JTable table;
+	private JTable jtlLista;
 	private JTextField txtDiasDemora;
 	private JTextField txtPrecio;
 
@@ -48,48 +53,45 @@ public class frmGestionarRuta extends JInternalFrame {
 	private String TipoEdicion;
 	
 	
-	private void LimpiarFormulario(){
-		txtDiasDemora.setText("");
-		txtPrecio.setText("");
-		
-	}
-		
 	private void LlenarComboOrigen(){
 		try {
 			DefaultComboBoxModel x = new DefaultComboBoxModel();
 			cmbCiudadOrigen.setModel(x);
 			
-			
-			ArrayList<Ciudad> lista = NEGCiudad.Instancia().listarCiudad();
-						
+			ArrayList<Ciudad> lista = DAOCiudad.Instancia().listarCiudad();
 			for (Ciudad ciudad : lista) {
-				x.addElement(ciudad.getIdCiudad());
-			}
-		
+			x.addElement(ciudad.getIdCiudad());
+		    }
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,
-				e.getMessage(), "Sistema Encomiendas", JOptionPane.ERROR_MESSAGE);
+				e.getMessage(), "Sistema Encomienda", JOptionPane.ERROR_MESSAGE);
 		}		
 	}
 	
 	private void LlenarComboDestino(){
 		try {
-			DefaultComboBoxModel y = new DefaultComboBoxModel();
-			cmbCiudadDestino.setModel(y);
+			DefaultComboBoxModel x = new DefaultComboBoxModel();
+			cmbCiudadDestino.setModel(x);
 			
-			ArrayList<Ciudad> lista = NEGCiudad.Instancia().listarCiudad();
-						
+			ArrayList<Ciudad> lista = DAOCiudad.Instancia().listarCiudad();
 			for (Ciudad ciudad : lista) {
-				y.addElement(ciudad.getIdCiudad());
+				x.addElement(ciudad.getIdCiudad());
 			}
-			
-			
+			/*for(int i=0;i<lista.size();i++){
+				x.addElement(lista.get(i));
+			}*/
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,
-				e.getMessage(), "Sistema Encomiendas", JOptionPane.ERROR_MESSAGE);
+				e.getMessage(), "Sistema Encomienda", JOptionPane.ERROR_MESSAGE);
 		}		
 	}
 	
+
+	private void LimpiarFormulario(){
+		txtDiasDemora.setText("");
+		txtPrecio.setText("");
+	}
+		
      private void HabilitarControles(Boolean Edicion){
 		
 		btnNuevo.setEnabled(!Edicion);
@@ -102,28 +104,28 @@ public class frmGestionarRuta extends JInternalFrame {
 		txtDiasDemora.setEditable(Edicion);
 		txtPrecio.setEditable(Edicion);
 		//cmbCiudadOrigen.enable(Edicion);
-		//cmbCiudadDestino.enable(Edicion);
+	   // cmbCiudadDestino.enable(Edicion);
 
-		table.enable(!Edicion);
+		jtlLista.enable(!Edicion);
 	}
      
      private void ListarRutas(){
  		try {
  			ArrayList<Ruta> lista = NEGRuta.Instancia().listarRuta();
  			
- 			((DefaultTableModel)table.getModel()).setRowCount(0);
+ 			((DefaultTableModel)jtlLista.getModel()).setRowCount(0);
  			
  			for (Ruta ruta : lista) {
  				int idRuta = ruta.getIdRuta();
- 				BigDecimal precio = ruta.getPrecioRuta();
- 				int diasDemora = ruta.getDiasDemoraRuta();
+ 				BigDecimal precioRuta = ruta.getPrecioRuta();
+ 				int diasDemoraRuta = ruta.getDiasDemoraRuta();
  				int idCiudadOrigen = ruta.getCiudadOrigen().getIdCiudad();
- 				String ciudadOrigen = ruta.getCiudadOrigen().getNombreCiudad();
+ 				String nombreciudadOrigen = ruta.getCiudadOrigen().getNombreCiudad();
  				int idCiudadDestino = ruta.getCiudadDestino().getIdCiudad();
- 				String ciudadDestino = ruta.getCiudadDestino().getNombreCiudad();
+ 				String nombreciudadDestino = ruta.getCiudadDestino().getNombreCiudad();
  				
- 				Object[] xyz = new Object[]{idRuta, idCiudadOrigen, ciudadOrigen,idCiudadDestino,ciudadDestino,diasDemora,precio};
- 				((DefaultTableModel)table.getModel()).addRow(xyz);				
+ 				Object[] xyz = new Object[]{idRuta,precioRuta,diasDemoraRuta, idCiudadOrigen, nombreciudadOrigen,idCiudadDestino,nombreciudadDestino};
+ 				((DefaultTableModel)jtlLista.getModel()).addRow(xyz);				
  			}
  			
  		} catch (Exception e) {
@@ -150,32 +152,59 @@ public class frmGestionarRuta extends JInternalFrame {
 		});
 	}
 
-		
-	/**
-	 * Create the frame.
-	 */
 	public frmGestionarRuta() {
-		setBounds(100, 100, 491, 375);
+		setBounds(100, 100, 537, 375);
 		getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 160, 455, 108);
+		scrollPane.setBounds(10, 160, 501, 108);
 		getContentPane().add(scrollPane);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		jtlLista = new JTable();
+		jtlLista.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0){
+				
+				try {
+					int fila = jtlLista.getSelectedRow();
+					int id = Integer.parseInt(jtlLista.getValueAt(fila, 0).toString());
+					
+					Ruta u = NEGRuta.Instancia().obtenerRuta(id);
+					if(u!=null){
+						
+						//cmbCiudadDestino.setSelectedItem(String.valueOf(u.getCiudadDestino()));
+						//cmbCiudadOrigen.setSelectedItem(String.valueOf(u.getCiudadOrigen()));
+						txtDiasDemora.setText(String.valueOf(u.getDiasDemoraRuta()));
+						txtPrecio.setText(String.valueOf(u.getPrecioRuta()));
+				
+					}
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null,
+							e.getMessage(), 
+							"Sistema", 
+							JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+			
+		});
+		scrollPane.setColumnHeaderView(jtlLista);
+		//getContentPane().setLayout(groupLayout);
+				
+		jtlLista.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"Ciudad Origen", "Ciudad Destino", "Dias Demora", "Precio"
+				"idRuta", "Precio", "Dias Demora", "id Ciudad Origen", "id Ciudad Destino", "Nombre CiudadOrigen", "Nombre CiudadDestino"
 			}
 		));
-		scrollPane.setColumnHeaderView(table);
+		//scrollPane.setColumnHeaderView(jtlLista);
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBorder(new TitledBorder(null, "Datos de la Ruta", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 11, 455, 138);
+		panel.setBounds(10, 11, 501, 138);
 		getContentPane().add(panel);
 		
 		JLabel lblCiudadOrigen = new JLabel("Ciudad Origen:");
@@ -186,8 +215,8 @@ public class frmGestionarRuta extends JInternalFrame {
 		lblCiudadDestino.setBounds(10, 50, 86, 14);
 		panel.add(lblCiudadDestino);
 		
-		JComboBox cmbCiudadOrigen = new JComboBox();
-		cmbCiudadOrigen.setBounds(108, 21, 285, 20);
+		cmbCiudadOrigen = new JComboBox();
+		cmbCiudadOrigen.setBounds(108, 21, 355, 20);
 		panel.add(cmbCiudadOrigen);
 		
 		JLabel lblPrecio = new JLabel("Precio:");
@@ -198,22 +227,22 @@ public class frmGestionarRuta extends JInternalFrame {
 		lblDiasDemora.setBounds(10, 79, 90, 14);
 		panel.add(lblDiasDemora);
 		
-		JComboBox cmbCiudadDestino = new JComboBox();
-		cmbCiudadDestino.setBounds(108, 50, 285, 20);
+	    cmbCiudadDestino = new JComboBox();
+		cmbCiudadDestino.setBounds(108, 50, 355, 20);
 		panel.add(cmbCiudadDestino);
 		
 		txtDiasDemora = new JTextField();
 		txtDiasDemora.setColumns(10);
-		txtDiasDemora.setBounds(108, 77, 285, 20);
+		txtDiasDemora.setBounds(108, 77, 355, 20);
 		panel.add(txtDiasDemora);
 		
 		txtPrecio = new JTextField();
 		txtPrecio.setColumns(10);
-		txtPrecio.setBounds(108, 107, 285, 20);
+		txtPrecio.setBounds(108, 107, 355, 20);
 		panel.add(txtPrecio);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 290, 455, 43);
+		panel_1.setBounds(10, 290, 501, 43);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -226,7 +255,7 @@ public class frmGestionarRuta extends JInternalFrame {
 				TipoEdicion="N";
 			}
 		});
-		btnNuevo.setBounds(10, 11, 63, 23);
+		btnNuevo.setBounds(0, 11, 71, 23);
 		panel_1.add(btnNuevo);
 		
 		btnEditar = new JButton("Editar");
@@ -236,7 +265,7 @@ public class frmGestionarRuta extends JInternalFrame {
 				TipoEdicion="E";
 			}
 		});
-		btnEditar.setBounds(83, 11, 63, 23);
+		btnEditar.setBounds(73, 11, 71, 23);
 		panel_1.add(btnEditar);
 		
 		btnCancelar = new JButton("Cancelar");
@@ -247,7 +276,7 @@ public class frmGestionarRuta extends JInternalFrame {
 				LimpiarFormulario();
 			}
 		});
-		btnCancelar.setBounds(305, 11, 74, 23);
+		btnCancelar.setBounds(337, 11, 91, 23);
 		panel_1.add(btnCancelar);
 		
 		//guardar
@@ -316,11 +345,10 @@ public class frmGestionarRuta extends JInternalFrame {
 						}
 					}else{
 						//editar el cliente
-						table.enable(false);
-						int fila = table.getSelectedRow();
-						int id = Integer.parseInt(table.getValueAt(fila, 0).toString());
+						jtlLista.enable(false);
+						int fila = jtlLista.getSelectedRow();
+						int id = Integer.parseInt(jtlLista.getValueAt(fila, 0).toString());
 						
-										
 						Ciudad co = new Ciudad();
 						co.setIdCiudad((int)cmbCiudadOrigen.getSelectedItem());
 						
@@ -356,25 +384,22 @@ public class frmGestionarRuta extends JInternalFrame {
 							"Sistema Encomienda",JOptionPane.INFORMATION_MESSAGE);
 							HabilitarControles(false);
 							ListarRutas();
-							table.enable(true);
+							jtlLista.enable(true);
 						}else{
 							JOptionPane.showMessageDialog(null,
 							"No se pudo editar", 
 							"Sistema Encomienda",JOptionPane.OK_OPTION);
 						}						
 					}
-					
-									
+								
 				}catch (Exception ex) {
 					JOptionPane.showMessageDialog(null,
-							ex.getMessage(), "Sistema Farmacia", 
+							ex.getMessage(), "Sistema Encomienda", 
 							JOptionPane.ERROR_MESSAGE);		
 				}	
-								
-			
 		}
 	});
-		btnGuardar.setBounds(227, 11, 71, 23);
+		btnGuardar.setBounds(246, 11, 81, 23);
 		panel_1.add(btnGuardar);
 		
 		//finguardar
@@ -384,8 +409,8 @@ public class frmGestionarRuta extends JInternalFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				try{
-					int fila = table.getSelectedRow();
-					int idRuta = Integer.parseInt(table.getValueAt(fila, 0).toString());
+					int fila = jtlLista.getSelectedRow();
+					int idRuta = Integer.parseInt(jtlLista.getValueAt(fila, 0).toString());
 					
 					
 					int i = JOptionPane.showConfirmDialog(null, 
@@ -415,7 +440,7 @@ public class frmGestionarRuta extends JInternalFrame {
 				}
 			}
 		});
-		btnEliminar.setBounds(156, 11, 68, 23);
+		btnEliminar.setBounds(154, 11, 84, 23);
 		panel_1.add(btnEliminar);
 		
 	    btnSalir = new JButton("Salir");
@@ -424,9 +449,13 @@ public class frmGestionarRuta extends JInternalFrame {
 				dispose();
 			}
 		});
-		btnSalir.setBounds(388, 11, 57, 23);
+		btnSalir.setBounds(438, 11, 63, 23);
 		panel_1.add(btnSalir);
 
 		//FALTA VER LA TABLA
+		ListarRutas();
+		HabilitarControles(false);
+		LlenarComboOrigen();
+		LlenarComboDestino();
 	}
 }
