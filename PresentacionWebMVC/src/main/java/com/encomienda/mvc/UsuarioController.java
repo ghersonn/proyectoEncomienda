@@ -29,6 +29,7 @@ public class UsuarioController {
 			String _Pass = u.getContraseniaUsuario();
 			
 			NEGUsuario.Instancia().VerificarAcceso(_Usuario,_Pass);
+			//sesion usuario
 			return "principal";
 			
 		} catch (ArithmeticException e) {

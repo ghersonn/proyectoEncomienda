@@ -8,5 +8,6 @@
 </head>
 <body>
 <h1>BIENVENIDO SISTEMA DE ENCOMIENDA</h1>
+<a href="realizarEnvio">Realizar Envio</a>
 </body>
 </html>
