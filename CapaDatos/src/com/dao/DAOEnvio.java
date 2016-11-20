@@ -27,7 +27,7 @@ public class DAOEnvio {
 		Boolean verificarEnvio = false;
 		try {
 			cn = DAOConexion.Instancia().conectar();
-			
+			cn.setAutoCommit(false);
 			/*REGISTRAR ENVIO*/			
 			CallableStatement cst1 = cn.prepareCall("{call REG_InsEnvio(?,?,?,?,?,?,?)}");
 	
@@ -37,7 +37,7 @@ public class DAOEnvio {
 				@prmstrFechaEmision date
 				,@prmstrFechaLlegada date
 				--,@prmstrFechaEntrega date
-				,@prmstrMontoTotal decimal(10,10)
+				,@prmstrMontoTotal decimal(10,2)
 				--,@prmstrEstadoPago bit
 				--,@prmstrEstadoEnvio char(1)
 				--,@prmstrEstado bit
@@ -48,13 +48,14 @@ public class DAOEnvio {
 				,@prmstrIdUsuario int
 			*/
 			
-			cst1.setDate(1, (Date)objEnvio.getFechaEmisionEnvio());
-			cst1.setDate(2, (Date)objEnvio.getFechaLlegadaEnvio());
+			cst1.setDate(1, new java.sql.Date(objEnvio.getFechaEmisionEnvio().getTime()));
+			cst1.setDate(2, new java.sql.Date(objEnvio.getFechaLlegadaEnvio().getTime()));
 			cst1.setBigDecimal(3, objEnvio.getMontoTotalEnvio());
 			cst1.setInt(4, objEnvio.getRemitenteEnvio().getIdCliente());
 			cst1.setInt(5, objEnvio.getDestinatarioEnvio().getIdCliente());
 			cst1.setInt(6, objEnvio.getRutaEnvio().getIdRuta());
-			cst1.setInt(7, objEnvio.getUsuarioEnvio().getIdUsuario());
+			cst1.setInt(7, 1);
+			//cst1.setInt(7, objEnvio.getUsuarioEnvio().getIdUsuario());
 			
 			ResultSet rs1 = cst1.executeQuery();
 			if (rs1.next()) {				

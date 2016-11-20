@@ -2,6 +2,8 @@ package com.encomienda.mvc;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +23,7 @@ import com.entidades.Paquete;
 import com.entidades.Ruta;
 import com.entidades.Usuario;
 import com.entidades.Viaje;
+import com.negocio.NEGCliente;
 import com.negocio.NEGEnvio;
 import com.negocio.NEGRuta;
 
@@ -37,10 +40,11 @@ public class EnvioController {
 		model.addAttribute("modelRuta", new Ruta());
 		
 		Envio e = new Envio();
-		e.remitenteEnvio = new Cliente();
-		e.destinatarioEnvio = new Cliente();
-		e.rutaEnvio = new Ruta();
-		e.viajeEnvio = new Viaje();
+		e.setFechaEmisionEnvio(new Date());
+		e.setRemitenteEnvio(new Cliente());
+		e.setDestinatarioEnvio(new Cliente());
+		e.setRutaEnvio(new Ruta());
+		e.setViajeEnvio(new Viaje());
 		
 		return new ModelAndView("enviar", "objEnvio", e);
 	}
@@ -50,12 +54,13 @@ public class EnvioController {
 			@ModelAttribute("modelRemitente")Cliente c, 
 			ModelMap model){
 		try {
-			e.remitenteEnvio = c;
+			c = NEGCliente.Instancia().obtenerClienteDNI(c.getDniCliente());
+			e.setRemitenteEnvio(c);
 			model.addAttribute("objEnvio", e);
-			model.addAttribute("modelRemitente", e.remitenteEnvio);
-			model.addAttribute("modelDestinatario", e.destinatarioEnvio);
+			model.addAttribute("modelRemitente", e.getRemitenteEnvio());
+			model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
 			model.addAttribute("modelPaquete", new Paquete());
-			model.addAttribute("modelRuta", e.rutaEnvio);
+			model.addAttribute("modelRuta", e.getRutaEnvio());
 			
 			return "enviar";
 			
@@ -76,12 +81,13 @@ public class EnvioController {
 			@ModelAttribute("modelDestinatario")Cliente c, 
 			ModelMap model){
 		try {
-			e.destinatarioEnvio = c;
+			c = NEGCliente.Instancia().obtenerClienteDNI(c.getDniCliente());
+			e.setDestinatarioEnvio(c);
 			model.addAttribute("objEnvio", e);
-			model.addAttribute("modelRemitente", e.remitenteEnvio);
-			model.addAttribute("modelDestinatario", e.destinatarioEnvio);
+			model.addAttribute("modelRemitente", e.getRemitenteEnvio());
+			model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
 			model.addAttribute("modelPaquete", new Paquete());
-			model.addAttribute("modelRuta", e.rutaEnvio);
+			model.addAttribute("modelRuta", e.getRutaEnvio());
 			
 			return "enviar";
 			
@@ -134,10 +140,10 @@ public class EnvioController {
 			e.actualizarTotal(); //actualizar Total
 			
 			model.addAttribute("objEnvio", e);
-			model.addAttribute("modelRemitente", e.remitenteEnvio);
-			model.addAttribute("modelDestinatario", e.destinatarioEnvio);
+			model.addAttribute("modelRemitente", e.getRemitenteEnvio());
+			model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
 			model.addAttribute("modelPaquete", new Paquete());
-			model.addAttribute("modelRuta", e.rutaEnvio);
+			model.addAttribute("modelRuta", e.getRutaEnvio());
 			
 			return "enviar";
 			
@@ -153,6 +159,13 @@ public class EnvioController {
 		}
 	}
 	
+	 public Date sumarDiasFecha(Date fecha, int dias){
+		       Calendar calendar = Calendar.getInstance();
+		       calendar.setTime(fecha); // Configuramos la fecha que se recibe
+		       calendar.add(Calendar.DAY_OF_YEAR, dias);  // numero de días a añadir, o restar en caso de días<0
+		       return calendar.getTime(); // Devuelve el objeto Date con los nuevos días añadidos
+	}
+	
 	@RequestMapping(value = "/AgregarPaquete", method = RequestMethod.POST)
 	public String AgregarPaquete(@ModelAttribute("objEnvio")Envio e,
 			@ModelAttribute("modelPaquete")Paquete p, 
@@ -162,10 +175,10 @@ public class EnvioController {
 			e.actualizarTotal(); //actualizar Total
 			
 			model.addAttribute("objEnvio", e);
-			model.addAttribute("modelRemitente", e.remitenteEnvio);
-			model.addAttribute("modelDestinatario", e.destinatarioEnvio);
+			model.addAttribute("modelRemitente", e.getRemitenteEnvio());
+			model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
 			model.addAttribute("modelPaquete", new Paquete());
-			model.addAttribute("modelRuta", e.rutaEnvio);
+			model.addAttribute("modelRuta", e.getRutaEnvio());
 			
 			return "enviar";
 			
@@ -185,6 +198,10 @@ public class EnvioController {
 	public String Enviar(@ModelAttribute("objEnvio")Envio e, 
 			ModelMap model){
 		try {
+			//Asignar la Fecha de entrega
+			e.setFechaLlegadaEnvio(sumarDiasFecha(e.getFechaEmisionEnvio(),e.getRutaEnvio().getDiasDemoraRuta()+1));
+			
+			//Realizar el envio
 			NEGEnvio.Instancia().enviar(e);
 			//sesion usuario
 			return "principal";
@@ -193,20 +210,19 @@ public class EnvioController {
 			model.addAttribute("error", ex.getMessage());
 			
 			model.addAttribute("objEnvio", e);
-			model.addAttribute("modelRemitente", e.remitenteEnvio);
-			model.addAttribute("modelDestinatario", e.destinatarioEnvio);
+			model.addAttribute("modelRemitente", e.getRemitenteEnvio());
+			model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
 			model.addAttribute("modelPaquete", new Paquete());
-			model.addAttribute("modelRuta", e.rutaEnvio);			
+			model.addAttribute("modelRuta", e.getRutaEnvio());			
 			return "enviar";
 			
 		} catch (Exception ex) {
 			model.addAttribute("error", ex.getMessage());
 			
-			model.addAttribute("objEnvio", e);
-			model.addAttribute("modelRemitente", e.remitenteEnvio);
-			model.addAttribute("modelDestinatario", e.destinatarioEnvio);
+			model.addAttribute("modelRemitente", e.getRemitenteEnvio());
+			model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
 			model.addAttribute("modelPaquete", new Paquete());
-			model.addAttribute("modelRuta", e.rutaEnvio);			
+			model.addAttribute("modelRuta", e.getRutaEnvio());			
 			return "enviar";
 		}
 	}

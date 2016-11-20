@@ -15,14 +15,14 @@
 		<frm:label path="dniCliente">DNI Remitente</frm:label>
 		<frm:input path="dniCliente"/>
 		<input type="submit" value="Verificar" name="btnVerificarRemitente"><br>
-		<p>${objEnvio.remitenteEnvio.dniCliente}</p>
+		<p>${objEnvio.remitenteEnvio.nombreCliente} ${objEnvio.remitenteEnvio.apellidosCliente}</p>
 	</frm:form>
 	
 	<frm:form method="POST" action="VerificarDestinatario" modelAttribute="modelDestinatario" commandName="modelDestinatario">
 		<frm:label path="dniCliente">DNI Destinatario</frm:label>
 		<frm:input path="dniCliente"/>
 		<input type="submit" value="Verificar" name="btnVerificarDestinatario"><br>
-		<p>${objEnvio.destinatarioEnvio.dniCliente}</p>
+		<p>${objEnvio.destinatarioEnvio.nombreCliente} ${objEnvio.destinatarioEnvio.apellidosCliente}</p>
 	</frm:form>
 	
 	<frm:form method="POST" action="AsignarRuta" modelAttribute="modelRuta" commandName="modelRuta">
@@ -75,6 +75,12 @@
 	IGV:<div id="igv"></div>
 	Descuento(10%):<div id="descuento"></div>
 	Total:<div id="total"></div>
+	
+	
+	<frm:form method="POST" action="Enviar">
+		<input type="submit" value="Enviar" name="btnEnviar"><br>
+	</frm:form>
+	
 	
 	<script type="text/javascript">
 		var descuento = ${objEnvio.montoDescuento};
