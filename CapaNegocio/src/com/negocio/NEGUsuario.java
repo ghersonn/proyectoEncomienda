@@ -1,5 +1,7 @@
 package com.negocio;
 
+import java.util.ArrayList;
+
 import com.dao.DAOUsuario;
 import com.entidades.Usuario;
 
@@ -30,4 +32,72 @@ public class NEGUsuario {
 		}
 	}
 	//endMetodos
+	
+	public ArrayList<Usuario> listarUsuario() throws Exception {
+		try {
+			return DAOUsuario.Instancia().listarUsuario();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+		
+	public Usuario obtenerUsuario(int idUsuario) throws Exception {
+		Usuario objUsuario = null;
+		try {
+			objUsuario = DAOUsuario.Instancia().obtenerUsuario(idUsuario);
+		} catch (Exception e) {
+			throw e;
+		}
+		return objUsuario;
+	}
+	
+	public ArrayList<Usuario> buscarUsuarios(String nombre) throws Exception {
+		ArrayList<Usuario> listUsuario = new ArrayList<Usuario>();
+		try {
+			listUsuario = DAOUsuario.Instancia().buscarUsuarios(nombre);
+		} catch (Exception e) {
+			throw e;
+		}
+		return listUsuario;
+	}
+
+	public Boolean insertarUsuario(Usuario objUsuario) throws Exception {
+		Boolean respuesta=false;
+		try {
+			
+			for (Usuario c : DAOUsuario.Instancia().listarUsuario())
+			{
+				if (c.getDniUsuario().equals(objUsuario.getDniUsuario()))
+					throw new Exception("El DNI del Usuario ya existe");
+			}
+			
+			respuesta = DAOUsuario.Instancia().insertarUsuario(objUsuario);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		return respuesta;
+	}
+
+	public Boolean modificarUsuario(Usuario objUsuario) throws Exception {
+		Boolean respuesta=false;
+		try {
+			respuesta = DAOUsuario.Instancia().modificarUsuario(objUsuario);
+		} catch (Exception e) {
+			throw e;
+		}
+		return respuesta;
+	}
+
+	public Boolean eliminarUsuario(int idUsuario) throws Exception {
+		Boolean respuesta=false;
+		try {
+			respuesta = DAOUsuario.Instancia().eliminarUsuario(idUsuario);
+		} catch (Exception e) {
+			throw e;
+		}
+		return respuesta;
+	}
+	
+	
 }
