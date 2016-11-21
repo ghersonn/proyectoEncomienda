@@ -61,6 +61,17 @@ public class frmPrincipal extends JFrame {
 		});
 		mnMantenedor.add(menuRuta);
 		
+		JMenuItem menuUsuario = new JMenuItem("Usuario");
+		menuUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+  				frmGestionarUsuario u = new frmGestionarUsuario();
+				dspContenedor.add(u);
+				u.setVisible(true);
+				
+			}
+		});
+		mnMantenedor.add(menuUsuario);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

@@ -189,7 +189,7 @@ public class frmGestionarRuta extends JInternalFrame {
 			}
 			
 		});
-		scrollPane.setColumnHeaderView(jtlLista);
+		scrollPane.setViewportView(jtlLista);
 		//getContentPane().setLayout(groupLayout);
 				
 		jtlLista.setModel(new DefaultTableModel(

@@ -79,7 +79,7 @@ public class DAOUsuario {
 				Usuario objUsuario = new Usuario();
 				objUsuario.setIdUsuario(resultSet.getInt("idUsuario"));
 				objUsuario.setUserNameUsuario(resultSet.getString("userNameUsuario"));
-				objUsuario.setContraseniaUsuario(resultSet.getString("contrasenioUsuario"));
+				objUsuario.setContraseniaUsuario(resultSet.getString("contraseniaUsuario"));
 				objUsuario.setNombreUsuario(resultSet.getString("nombreUsuario"));
 				objUsuario.setApellidoUsuario(resultSet.getString("apellidoUsuario"));
 				objUsuario.setTelefonoUsuario(resultSet.getString("telefonoUsuario"));
@@ -137,13 +137,13 @@ public class DAOUsuario {
 			
 			if (resultSet.next()) {
 				objUsuario = new Usuario();
-				objUsuario.setIdUsuario(resultSet.getInt("idUsuario"));
-				objUsuario.setUserNameUsuario(resultSet.getString("userNameUsuario"));
-				objUsuario.setContraseniaUsuario(resultSet.getString("contrasenioUsuario"));
-				objUsuario.setNombreUsuario(resultSet.getString("nombreUsuario"));
-				objUsuario.setApellidoUsuario(resultSet.getString("apellidoUsuario"));
-				objUsuario.setTelefonoUsuario(resultSet.getString("telefonoUsuario"));
-				objUsuario.setDniUsuario(resultSet.getString("dniUsuario"));
+				objUsuario.setIdUsuario(resultSet.getInt("id"));
+				objUsuario.setUserNameUsuario(resultSet.getString("userName"));
+				objUsuario.setContraseniaUsuario(resultSet.getString("contrasenia"));
+				objUsuario.setNombreUsuario(resultSet.getString("nombre"));
+				objUsuario.setApellidoUsuario(resultSet.getString("apellido"));
+				objUsuario.setTelefonoUsuario(resultSet.getString("telefono"));
+				objUsuario.setDniUsuario(resultSet.getString("dni"));
 			}
 		} catch (Exception e) {
 			throw e;
@@ -186,7 +186,7 @@ public class DAOUsuario {
 		try {
 						
 			CallableStatement callableStatement = connection.prepareCall("{call ACT_Usuario(?,?,?,?,?,?,?)}");
-			callableStatement.setInt	(1, objUsuario.getIdUsuario());
+			callableStatement.setInt(1, objUsuario.getIdUsuario());
 			callableStatement.setString(2, objUsuario.getUserNameUsuario());
 			callableStatement.setString(3, objUsuario.getContraseniaUsuario());
 			callableStatement.setString(4, objUsuario.getNombreUsuario());
