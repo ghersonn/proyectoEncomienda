@@ -72,6 +72,17 @@ public class frmPrincipal extends JFrame {
 		});
 		mnMantenedor.add(menuUsuario);
 		
+		JMenuItem menuChofer = new JMenuItem("Chofer");
+		menuChofer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+  				frmGestionarChofer  c = new frmGestionarChofer();
+				dspContenedor.add(c);
+				c.setVisible(true);
+				
+			}
+		});
+		mnMantenedor.add(menuChofer);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
