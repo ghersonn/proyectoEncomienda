@@ -9,5 +9,9 @@
 <body>
 <h1>BIENVENIDO SISTEMA DE ENCOMIENDA</h1>
 <a href="realizarEnvio">Realizar Envio</a>
+
+<a href="${pageContext.request.contextPath}/RegistroCliente">
+	    Registrar
+	    </a>
 </body>
 </html>
