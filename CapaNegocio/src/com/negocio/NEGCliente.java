@@ -29,6 +29,16 @@ public class NEGCliente {
 		return objCliente;
 	}
 	
+	public Cliente obtenerClienteID(int idCliente) throws Exception {
+		Cliente objCliente = null;
+		try {
+			objCliente = DAOCliente.Instancia().obtenerClienteID(idCliente);
+		} catch (Exception e) {
+			throw e;
+		}
+		return objCliente;
+	}
+	
 	public boolean insertarCliente(Cliente objCliente) throws Exception {	
 		try {
 		return DAOCliente.Instancia().insertarCliente(objCliente);
