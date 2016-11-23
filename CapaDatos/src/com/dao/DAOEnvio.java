@@ -11,6 +11,7 @@ import com.entidades.Cliente;
 import com.entidades.Envio;
 import com.entidades.Paquete;
 import com.entidades.Ruta;
+import com.entidades.Usuario;
 
 public class DAOEnvio {
 	// Singleton
@@ -174,4 +175,34 @@ public class DAOEnvio {
 		return listEnvio;
 	}
 	//endMetodos
+	
+	//ReporteEnvio
+	
+	/*public ArrayList<Envio> reporteEnvio(Date fechaEmision) throws Exception {
+		Connection connection = DAOConexion.Instancia().conectar();
+		ArrayList<Envio> listEnvio = new ArrayList<Envio>();
+		
+		try {
+			CallableStatement callableStatement = connection.prepareCall("{call Repore_Envio(?)}");
+			
+			callableStatement.setDate(1, new java.sql.Date(fechaEmision.getTime()));
+			ResultSet resultSet = callableStatement.executeQuery();
+			
+		
+			
+			while (resultSet.next()) {
+				Envio objEnvio = new Envio();
+				
+				
+				listEnvio.add(objEnvio);
+			}
+			
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			connection.close();
+		}
+		return listEnvio;
+	}*/
+	
 }
