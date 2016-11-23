@@ -4,9 +4,13 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
+import com.entidades.Ciudad;
+import com.entidades.Cliente;
 import com.entidades.Envio;
 import com.entidades.Paquete;
+import com.entidades.Ruta;
 
 public class DAOEnvio {
 	// Singleton
@@ -116,6 +120,58 @@ public class DAOEnvio {
 		} finally {
 			cn.close();
 		}
+	}
+	
+	public ArrayList<Envio> listarEnvioEstadoR() throws Exception{
+		
+		Connection connection = DAOConexion.Instancia().conectar();
+		ArrayList<Envio> listEnvio = new ArrayList<Envio>();
+
+		try {
+			CallableStatement callableStatement = connection.prepareCall("{call LIS_EnvioEstadoR()}");
+			ResultSet resultSet = callableStatement.executeQuery();
+			
+			/*
+			id
+			,codigoGenerado
+			,fechaEmision
+			,fechaLlegada
+			--,fechaEntrega
+			,montoTotal
+			,estadoPago
+			,estadoEnvio
+			,estado
+			,idRemitente
+			,idDestinatario
+			,idRuta
+			--,idViaje
+			--,idUsuario
+			*/
+			
+			while (resultSet.next()) {
+				
+				Cliente objRemitente = new Cliente();
+				objRemitente.setIdCliente(resultSet.getInt("idRemitente"));
+				
+				Cliente objDestinatario = new Cliente();
+				objDestinatario.setIdCliente(resultSet.getInt("idDestinatario"));
+				
+				Ruta objRuta = new Ruta();
+				objRuta.setIdRuta(resultSet.getInt("idRuta"));
+				
+				Envio objEnvio = new Envio();
+				objEnvio.setIdEnvio(resultSet.getInt("id"));
+				objEnvio.setCodigoGeneradoEnvio(resultSet.getInt("codigoGenerado"));
+				
+				listEnvio.add(objEnvio);
+				
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			connection.close();
+		}
+		return listEnvio;
 	}
 	//endMetodos
 }
