@@ -1,7 +1,11 @@
 package com.negocio;
 
+import java.util.ArrayList;
+
 import com.dao.DAOEnvio;
+import com.dao.DAORuta;
 import com.entidades.Envio;
+import com.entidades.Ruta;
 
 public class NEGEnvio {
 	//Singleton
@@ -22,6 +26,14 @@ public class NEGEnvio {
 				throw new ArithmeticException("Error al registrar el envio!");
 			}
 			return verificar;
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	public ArrayList<Envio> listarEnvioEstadoR() throws Exception {
+	try {
+		return DAOEnvio.Instancia().listarEnvioEstadoR();
 		} catch (Exception e) {
 			throw e;
 		}
