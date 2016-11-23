@@ -10,6 +10,8 @@
 <h1>BIENVENIDO SISTEMA DE ENCOMIENDA</h1>
 <a href="realizarEnvio">Realizar Envio</a>
 
+<a href="realizarViaje">Asignar Transporte</a>
+
 <a href="${pageContext.request.contextPath}/RegistroCliente">
 	    Registrar
 	    </a>

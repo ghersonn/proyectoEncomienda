@@ -84,15 +84,15 @@ public class ViajeController {
 			//else r.setPrecioRuta(new BigDecimal(3.00)); //Le asigno un precio temporal
 			//e.rutaEnvio = r;
 			
-			//e.rutaEnvio = NEGRuta.Instancia().obtenerRuta(r.getIdRuta());
+			e = NEGEnvio.Instancia().obtenerEnvio(e.getIdEnvio());
 			
-			//model.addAttribute("objEnvio", e);
+			model.addAttribute("objEnvio", e);
 			//model.addAttribute("modelRemitente", e.getRemitenteEnvio());
 			//model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
 			//model.addAttribute("modelPaquete", new Paquete());
 			//model.addAttribute("modelRuta", e.getRutaEnvio());
 			
-			return "enviar";
+			return "viaje";
 			
 		} catch (ArithmeticException ex) {
 			model.addAttribute("error", ex.getMessage());

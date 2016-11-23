@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<frm:form method="POST" action="AsignarEnvioViaje" modelAttribute="modelRuta" commandName="modelRuta">
+<frm:form method="POST" action="AsignarEnvioViaje" modelAttribute="objEnvio" commandName="objEnvio">
 		<frm:select path="idEnvio">
 		 <frm:option value="0" label="--- Select ---"/>
 		 <frm:options items="${listEnvio}" />
