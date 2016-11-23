@@ -13,5 +13,9 @@
 <a href="${pageContext.request.contextPath}/RegistroCliente">
 	    Registrar
 	    </a>
+
+<a href="${pageContext.request.contextPath}/ReporteEnvio">
+	    Registrar
+	    </a>
 </body>
 </html>
