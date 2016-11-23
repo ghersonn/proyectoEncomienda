@@ -174,6 +174,41 @@ public class DAOEnvio {
 		}
 		return listEnvio;
 	}
+	
+	public Envio obtenerEnvio(int idEnvio) throws Exception {
+		Connection connection = DAOConexion.Instancia().conectar();
+		Envio objEnvio = null;
+		try {
+			CallableStatement callableStatement = connection.prepareCall("{call BUS_Envio(?)}");
+			
+			callableStatement.setInt(1, idEnvio);
+			ResultSet resultSet = callableStatement.executeQuery();
+			
+			if (resultSet.next()) {
+				
+				Cliente objRemitente = new Cliente();
+				objRemitente.setIdCliente(resultSet.getInt("idRemitente"));
+				
+				Cliente objDestinatario = new Cliente();
+				objDestinatario.setIdCliente(resultSet.getInt("idDestinatario"));
+				
+				Ruta objRuta = new Ruta();
+				objRuta.setIdRuta(resultSet.getInt("idRuta"));
+				
+				objEnvio = new Envio();
+				objEnvio.setIdEnvio(resultSet.getInt("id"));
+				objEnvio.setCodigoGeneradoEnvio(resultSet.getInt("codigoGenerado"));
+				
+			}
+			
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			connection.close();
+		}
+		return objEnvio;
+	}
+	
 	//endMetodos
 	
 	//ReporteEnvio

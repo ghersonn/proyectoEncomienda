@@ -37,7 +37,7 @@ public class DAOViaje {
 			callableStatement.setDate(2, new java.sql.Date(objEnvio.getViajeEnvio().getFechaEnvioViaje().getTime()));
 			callableStatement.setInt(3, objEnvio.getViajeEnvio().getUnidadTransporteViaje().getIdUnidadTransporte());
 			callableStatement.setInt(4, objEnvio.getRutaEnvio().getIdRuta());
-
+			
 			int i = callableStatement.executeUpdate();
 
 			if (i > 0)	respuesta = true;

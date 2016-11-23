@@ -38,5 +38,15 @@ public class NEGEnvio {
 			throw e;
 		}
 	}
+	
+	public Envio obtenerEnvio(int idEnvio) throws Exception {
+		Envio objEnvio = null;
+		try {
+			objEnvio = DAOEnvio.Instancia().obtenerEnvio(idEnvio);
+		} catch (Exception e) {
+			throw e;
+		}
+		return objEnvio;
+	}
 	//endMetodos
 }
