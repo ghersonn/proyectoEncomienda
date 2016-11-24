@@ -1,5 +1,6 @@
 package com.negocio;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import com.dao.DAOEnvio;
@@ -48,5 +49,13 @@ public class NEGEnvio {
 		}
 		return objEnvio;
 	}
+	
+	public ArrayList<Envio> reporteEnvio(Date fechaEmision) throws Exception {
+		try {
+			return DAOEnvio.Instancia().reporteEnvio(fechaEmision);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
 	//endMetodos
 }

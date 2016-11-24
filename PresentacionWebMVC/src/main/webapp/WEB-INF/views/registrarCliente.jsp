@@ -45,10 +45,11 @@
 		     <frm:label path="rucCliente" name="">RUC</frm:label>
 		     <frm:input path="rucCliente"></frm:input>
 		     </p>
-		   
+		   		   
 			 <p align="left">
 		   	 <input type="submit" value="Ingresar" name="btnIngresar" >
 		  	 </p>
+		  	 
 		</frm:form>
 		
 			

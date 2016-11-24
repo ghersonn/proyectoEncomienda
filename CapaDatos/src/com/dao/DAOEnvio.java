@@ -213,7 +213,7 @@ public class DAOEnvio {
 	
 	//ReporteEnvio
 	
-	/*public ArrayList<Envio> reporteEnvio(Date fechaEmision) throws Exception {
+	public ArrayList<Envio> reporteEnvio(Date fechaEmision) throws Exception {
 		Connection connection = DAOConexion.Instancia().conectar();
 		ArrayList<Envio> listEnvio = new ArrayList<Envio>();
 		
@@ -223,11 +223,28 @@ public class DAOEnvio {
 			callableStatement.setDate(1, new java.sql.Date(fechaEmision.getTime()));
 			ResultSet resultSet = callableStatement.executeQuery();
 			
-		
-			
 			while (resultSet.next()) {
-				Envio objEnvio = new Envio();
 				
+				Envio objEnvio = new Envio();
+				objEnvio.setIdEnvio(resultSet.getInt("id"));
+				objEnvio.setCodigoGeneradoEnvio(resultSet.getInt("codigoGenerado"));
+				objEnvio.setFechaEmisionEnvio(resultSet.getDate("fechaEmision"));
+				objEnvio.setFechaLlegadaEnvio(resultSet.getDate("fechaLlegada"));
+				objEnvio.setFechaEntregaEnvio(resultSet.getDate("fechaEntrega"));
+				objEnvio.setMontoTotalEnvio(resultSet.getBigDecimal("montoTotal"));
+				objEnvio.setEstadoPagoEnvio(resultSet.getBoolean("estadoPago"));
+				objEnvio.setEstadoEnvio(resultSet.getString("estadoEnvio"));
+				
+				Cliente objRemitente = new Cliente();
+				objRemitente.setIdCliente(resultSet.getInt("idRemitente"));
+				objRemitente.setNombreCliente(resultSet.getString("nombreRemitente"));
+				
+				Cliente objDestinatario = new Cliente();
+				objDestinatario.setIdCliente(resultSet.getInt("idDestinatario"));
+				objDestinatario.setNombreCliente(resultSet.getString("nombreDestinatario"));
+								
+				Ruta objRuta = new Ruta();
+				objRuta.setIdRuta(resultSet.getInt("idRuta"));
 				
 				listEnvio.add(objEnvio);
 			}
@@ -238,6 +255,6 @@ public class DAOEnvio {
 			connection.close();
 		}
 		return listEnvio;
-	}*/
+	}
 	
 }

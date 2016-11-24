@@ -11,10 +11,17 @@
 	<div align="center">
 		<frm:form method="POST" action="reporteEnvio2">
 			
-				  
-		</frm:form>
-		
+			 <p align="left">
+		   	 <input type="datetime" name="fechaHora" >
+		  	 </p>
+		  	 
+			 <p align="left">
+		   	 <input type="submit" value="Ingresar" name="btnIngresar" >
+		  	 </p>
+		  	 
 			
+		</frm:form>
+
 	</div>
 </body>
 </html>
