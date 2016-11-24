@@ -96,7 +96,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="${pageContext.request.contextPath}/realizarViaje">Realizar Envio</a></li>
+            <li><a href="${pageContext.request.contextPath}/realizarEnvio">Realizar Envio</a></li>
             <li><a href="${pageContext.request.contextPath}/RegistroCliente">Registrar Cliente</a></li>
             <li><a href="${pageContext.request.contextPath}/realizarViaje">Asignar Transporte</a></li>
             <li><a href="${pageContext.request.contextPath}/ReporteEnvio">Reporte Envio</a></li>
@@ -174,26 +174,28 @@
 			
 			<hr>
 			
-			<table border="1" style="width: 100%">
-				<thead>
-					<tr>
-						<th>Descripcion</th>
-						<th>Peso</th>
-						<th>Fragil</th>
-						<th>Precio</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${objEnvio.listPaquete}" var="paq">
+			<div class="table-responsive col-md-12">
+				<table class="table table-striped" border="1" style="width: 100%">
+					<thead>
 						<tr>
-							<td>${paq.descripcionPaquete}</td>
-							<td>${paq.pesoPaquete}</td>
-							<td>${paq.fragilPaquete}</td>
-							<td>${paq.precioPaquete}</td>
+							<th>Descripcion</th>
+							<th>Peso</th>
+							<th>Fragil</th>
+							<th>Precio</th>
 						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						<c:forEach items="${objEnvio.listPaquete}" var="paq">
+							<tr>
+								<td>${paq.descripcionPaquete}</td>
+								<td>${paq.pesoPaquete}</td>
+								<td>${paq.fragilPaquete}</td>
+								<td>${paq.precioPaquete}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
 			
 			SubTotal:<div id="subTotal"></div>
 			IGV:<div id="igv"></div>

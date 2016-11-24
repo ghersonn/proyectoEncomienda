@@ -63,7 +63,7 @@ public class ReporteEnvioConntroller {
 		try {
 			ArrayList<Paquete> listPaquete =new ArrayList<Paquete>();
 			listPaquete=NEGPaquete.Instancia().listaPaqueteEnvio(e.getIdEnvio());
-						
+			
 			model.addAttribute("listaReporteEnvio",listEnvio);
 			model.addAttribute("listaPaqueteEnvio",listPaquete);
 			
