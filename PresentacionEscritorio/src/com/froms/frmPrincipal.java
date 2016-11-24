@@ -12,6 +12,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JDesktopPane;
+import java.awt.Frame;
 
 public class frmPrincipal extends JFrame {
 
@@ -38,6 +39,8 @@ public class frmPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public frmPrincipal() {
+		setExtendedState(Frame.MAXIMIZED_BOTH);
+		setTitle("Sistema de Encomienda");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
@@ -82,6 +85,16 @@ public class frmPrincipal extends JFrame {
 			}
 		});
 		mnMantenedor.add(menuChofer);
+		
+		JMenuItem mntmUnidadTransporte = new JMenuItem("Unidad Transporte");
+		mntmUnidadTransporte.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frmGestionarUnidadTransporte u = new frmGestionarUnidadTransporte();
+				dspContenedor.add(u);
+				u.setVisible(true);
+			}
+		});
+		mnMantenedor.add(mntmUnidadTransporte);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

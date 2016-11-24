@@ -20,8 +20,11 @@ import com.entidades.Ruta;
 import com.entidades.UnidadTransporte;
 import com.entidades.Usuario;
 import com.entidades.Viaje;
+import com.negocio.NEGCliente;
 import com.negocio.NEGEnvio;
 import com.negocio.NEGRuta;
+import com.negocio.NEGUnidadTransporte;
+import com.negocio.NEGViaje;
 
 @SessionAttributes("objEnvio")
 @Controller
@@ -36,8 +39,8 @@ public class ViajeController {
 			
 			//model.addAttribute("modelRemitente", new Cliente());
 			//model.addAttribute("modelDestinatario", new Cliente());
-			//model.addAttribute("modelPaquete", new Paquete());
-			//model.addAttribute("modelRuta", new Ruta());
+			model.addAttribute("modelViaje", new Viaje());
+			model.addAttribute("modelUnidadTransporte", new UnidadTransporte());
 			
 			Viaje objViaje = new Viaje();
 			objViaje.setUnidadTransporteViaje(new UnidadTransporte());
@@ -60,7 +63,7 @@ public class ViajeController {
 	  Map<String,String> envio = new LinkedHashMap<String,String>();
 	  
 	  try {
-		  ArrayList<Envio> listEnvio = NEGEnvio.Instancia().listarEnvioEstadoR();;
+		  ArrayList<Envio> listEnvio = NEGEnvio.Instancia().listarEnvioEstadoR();
 		  
 		  for (Envio objEnvio : listEnvio) {
 			  envio.put(""+objEnvio.getIdEnvio()+"", "Codigo - "+objEnvio.getCodigoGeneradoEnvio()+"");
@@ -83,10 +86,126 @@ public class ViajeController {
 			//if(r.getIdRuta()<=2) r.setPrecioRuta(new BigDecimal(2.00)); //Le asigno un precio temporal
 			//else r.setPrecioRuta(new BigDecimal(3.00)); //Le asigno un precio temporal
 			//e.rutaEnvio = r;
-			
+			Viaje v = e.getViajeEnvio();
 			e = NEGEnvio.Instancia().obtenerEnvio(e.getIdEnvio());
+			e.setViajeEnvio(v);
+			e.setRemitenteEnvio(NEGCliente.Instancia().obtenerClienteID(e.getRemitenteEnvio().getIdCliente()));
+			e.setDestinatarioEnvio(NEGCliente.Instancia().obtenerClienteID(e.getDestinatarioEnvio().getIdCliente()));
+			e.setRutaEnvio(NEGRuta.Instancia().obtenerRuta(e.getRutaEnvio().getIdRuta()));
 			
 			model.addAttribute("objEnvio", e);
+			model.addAttribute("modelUnidadTransporte", e.getViajeEnvio().getUnidadTransporteViaje());
+			model.addAttribute("modelViaje", e.getViajeEnvio());
+			//model.addAttribute("modelRemitente", e.getRemitenteEnvio());
+			//model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
+			//model.addAttribute("modelPaquete", new Paquete());
+			//model.addAttribute("modelRuta", e.getRutaEnvio());
+			
+			return "viaje";
+			
+		} catch (ArithmeticException ex) {
+			model.addAttribute("error", ex.getMessage());
+			model.addAttribute("cmdUsuario", new Usuario());
+			return "login";
+			
+		} catch (Exception ex) {
+			model.addAttribute("error", ex.getMessage());
+			model.addAttribute("cmdUsuario", new Usuario());			
+			return "login";
+		}
+	}
+	
+	@ModelAttribute("listUnidadTransporte")
+	 public Map<String,String> populateUnidadTransporteList() {
+	   
+	  //Data referencing for java skills list box
+	  Map<String,String> unidadTransporte = new LinkedHashMap<String,String>();
+	  
+	  try {
+		  ArrayList<UnidadTransporte> listUnidadTransporte = NEGUnidadTransporte.Instancia().listarUnidadTransporte();
+		  
+		  for (UnidadTransporte objUnidadTransporte : listUnidadTransporte) {
+			  unidadTransporte.put(""+objUnidadTransporte.getIdUnidadTransporte()+"", ""+objUnidadTransporte.getMatriculaUnidadTransporte()+"");
+		  }
+		
+	  } catch (Exception e) {
+		  // TODO: handle exception
+		  unidadTransporte.put("0", "-");
+	  }
+	  return unidadTransporte;
+	 }
+	
+	
+	@RequestMapping(value = "/AsignarUnidadTransporte", method = RequestMethod.POST)
+	public String AsignarUnidadTransporte(@ModelAttribute("objEnvio")Envio e,
+			@ModelAttribute("modelUnidadTransporte")UnidadTransporte u,
+			ModelMap model){
+		try {
+			
+			//Hacer busqueda de Ruta por Id
+			//if(r.getIdRuta()<=2) r.setPrecioRuta(new BigDecimal(2.00)); //Le asigno un precio temporal
+			//else r.setPrecioRuta(new BigDecimal(3.00)); //Le asigno un precio temporal
+			//e.rutaEnvio = r;
+			u = NEGUnidadTransporte.Instancia().obtenerUnidadTransporte(u.getIdUnidadTransporte());
+			e.getViajeEnvio().setUnidadTransporteViaje(u);
+			
+			
+			model.addAttribute("objEnvio", e);
+			model.addAttribute("modelUnidadTransporte", e.getViajeEnvio().getUnidadTransporteViaje());
+			model.addAttribute("modelViaje", e.getViajeEnvio());
+			//model.addAttribute("modelRemitente", e.getRemitenteEnvio());
+			//model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
+			//model.addAttribute("modelPaquete", new Paquete());
+			//model.addAttribute("modelRuta", e.getRutaEnvio());
+			
+			return "viaje";
+			
+		} catch (ArithmeticException ex) {
+			model.addAttribute("error", ex.getMessage());
+			model.addAttribute("cmdUsuario", new Usuario());
+			return "login";
+			
+		} catch (Exception ex) {
+			model.addAttribute("error", ex.getMessage());
+			model.addAttribute("cmdUsuario", new Usuario());			
+			return "login";
+		}
+	}
+	
+	@RequestMapping(value = "/GrabarViaje", method = RequestMethod.POST)
+	public String GrabarViaje(@ModelAttribute("objEnvio")Envio e,
+			@ModelAttribute("modelViaje")Viaje v,
+			ModelMap model){
+		try {
+			
+			//Hacer busqueda de Ruta por Id
+			//if(r.getIdRuta()<=2) r.setPrecioRuta(new BigDecimal(2.00)); //Le asigno un precio temporal
+			//else r.setPrecioRuta(new BigDecimal(3.00)); //Le asigno un precio temporal
+			//e.rutaEnvio = r;
+			e.getViajeEnvio().setFechaEnvioViaje(v.getFechaEnvioViaje());			
+			
+			Boolean verificar = NEGViaje.Instancia().insertarViaje(e);
+			if(verificar){
+				
+				Viaje objViaje = new Viaje();
+				objViaje.setUnidadTransporteViaje(new UnidadTransporte());
+				objViaje.setRutaViaje(new Ruta());
+				Envio ee = new Envio();
+				ee.setRutaEnvio(new Ruta());
+				ee.setViajeEnvio(objViaje);
+				
+				model.addAttribute("error", "Se registro el envio");
+				model.addAttribute("objEnvio", ee);
+				model.addAttribute("modelViaje", new Viaje());
+				model.addAttribute("modelUnidadTransporte", new UnidadTransporte());
+				
+			}else{
+				model.addAttribute("objEnvio", e);
+				model.addAttribute("modelUnidadTransporte", e.getViajeEnvio().getUnidadTransporteViaje());
+				model.addAttribute("modelViaje", e.getViajeEnvio());
+				
+				model.addAttribute("error", "ERROR al registrar el envio");
+			}
 			//model.addAttribute("modelRemitente", e.getRemitenteEnvio());
 			//model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
 			//model.addAttribute("modelPaquete", new Paquete());

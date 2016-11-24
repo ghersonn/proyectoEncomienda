@@ -43,4 +43,10 @@ public class UsuarioController {
 			return "login";
 		}
 	}
+	
+	@RequestMapping(value = "/Principal", method = RequestMethod.GET)
+	public ModelAndView Principal(Locale locale, Model model) {				
+		return new ModelAndView("principal", "cmdUsuario", new Usuario());
+	}
+	
 }

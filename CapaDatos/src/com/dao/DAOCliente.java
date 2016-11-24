@@ -57,6 +57,45 @@ public class DAOCliente {
 		}
 		return objCliente;
 	}
+	
+	
+	public Cliente obtenerClienteID(int idCliente) throws Exception {
+		Connection connection = DAOConexion.Instancia().conectar();
+		Cliente objCliente = null;
+		try {
+			CallableStatement callableStatement = connection.prepareCall("{call BUS_ClienteID(?)}");
+			
+			callableStatement.setInt(1, idCliente);
+			ResultSet resultSet = callableStatement.executeQuery();
+			
+			/*
+			 	id,
+				nombre,
+				apellidos,
+				dni,
+				celular,
+				razonSocial,
+				ruc
+			 */
+
+			if (resultSet.next()) {
+				objCliente = new Cliente();
+				objCliente.setIdCliente(resultSet.getInt("id"));
+				objCliente.setNombreCliente(resultSet.getString("nombre"));
+				objCliente.setApellidosCliente(resultSet.getString("apellidos"));
+				objCliente.setDniCliente(resultSet.getString("dni"));
+				objCliente.setCelularCliente(resultSet.getString("celular"));
+				objCliente.setRazonSocialCliente(resultSet.getString("razonSocial"));
+				objCliente.setRucCliente(resultSet.getString("ruc"));
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			connection.close();
+		}
+		return objCliente;
+	}
+	
 	//endMetodos
 	
 	public Boolean insertarCliente(Cliente objCliente) throws Exception {

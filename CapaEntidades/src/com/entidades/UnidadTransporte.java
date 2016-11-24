@@ -3,7 +3,7 @@ package com.entidades;
 public class UnidadTransporte {
 	public int idUnidadTransporte;
 	public String matriculaUnidadTransporte;
-	public String placaUnidadTransporte;
+	public String marcaUnidadTransporte;
 	public String modeloUnidadTransporte;
 	public Chofer choferUnidadTransporte;
 	public Boolean estadoUnidadTransporte;
@@ -20,11 +20,11 @@ public class UnidadTransporte {
 	public void setMatriculaUnidadTransporte(String matriculaUnidadTransporte) {
 		this.matriculaUnidadTransporte = matriculaUnidadTransporte;
 	}
-	public String getPlacaUnidadTransporte() {
-		return placaUnidadTransporte;
+	public String getMarcaUnidadTransporte() {
+		return marcaUnidadTransporte;
 	}
-	public void setPlacaUnidadTransporte(String placaUnidadTransporte) {
-		this.placaUnidadTransporte = placaUnidadTransporte;
+	public void setMarcaUnidadTransporte(String marcaUnidadTransporte) {
+		this.marcaUnidadTransporte = marcaUnidadTransporte;
 	}
 	public String getModeloUnidadTransporte() {
 		return modeloUnidadTransporte;

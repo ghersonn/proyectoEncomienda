@@ -163,6 +163,9 @@ public class DAOEnvio {
 				Envio objEnvio = new Envio();
 				objEnvio.setIdEnvio(resultSet.getInt("id"));
 				objEnvio.setCodigoGeneradoEnvio(resultSet.getInt("codigoGenerado"));
+				objEnvio.setRutaEnvio(objRuta);
+				objEnvio.setRemitenteEnvio(objRemitente);
+				objEnvio.setDestinatarioEnvio(objDestinatario);				
 				
 				listEnvio.add(objEnvio);
 				
@@ -198,6 +201,9 @@ public class DAOEnvio {
 				objEnvio = new Envio();
 				objEnvio.setIdEnvio(resultSet.getInt("id"));
 				objEnvio.setCodigoGeneradoEnvio(resultSet.getInt("codigoGenerado"));
+				objEnvio.setRutaEnvio(objRuta);
+				objEnvio.setRemitenteEnvio(objRemitente);
+				objEnvio.setDestinatarioEnvio(objDestinatario);	
 				
 			}
 			

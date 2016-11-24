@@ -3,9 +3,7 @@ package com.negocio;
 import java.util.ArrayList;
 
 import com.dao.DAOChofer;
-import com.dao.DAOUsuario;
 import com.entidades.Chofer;
-import com.entidades.Usuario;
 
 public class NEGChofer {
 	//Singleton
