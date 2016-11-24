@@ -2,9 +2,9 @@ package com.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.entidades.Ciudad;
 import com.entidades.Cliente;
@@ -244,13 +244,26 @@ public class DAOEnvio {
 				Cliente objRemitente = new Cliente();
 				objRemitente.setIdCliente(resultSet.getInt("idRemitente"));
 				objRemitente.setNombreCliente(resultSet.getString("nombreRemitente"));
+				objEnvio.setRemitenteEnvio(objRemitente);
 				
 				Cliente objDestinatario = new Cliente();
 				objDestinatario.setIdCliente(resultSet.getInt("idDestinatario"));
 				objDestinatario.setNombreCliente(resultSet.getString("nombreDestinatario"));
+				objEnvio.setDestinatarioEnvio(objDestinatario);
 								
+				
 				Ruta objRuta = new Ruta();
 				objRuta.setIdRuta(resultSet.getInt("idRuta"));
+				
+				Ciudad objCiudadOrigen =new Ciudad();
+				objCiudadOrigen.setNombreCiudad(resultSet.getString("nombreCiudadOrigen"));
+				objRuta.setCiudadOrigen(objCiudadOrigen);
+				
+				Ciudad objCiudadDestino =new Ciudad();
+				objCiudadDestino.setNombreCiudad(resultSet.getString("nombreCiudadDestino"));
+				objRuta.setCiudadDestino(objCiudadDestino);
+				
+				objEnvio.setRutaEnvio(objRuta);
 				
 				listEnvio.add(objEnvio);
 			}

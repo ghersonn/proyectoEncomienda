@@ -9,17 +9,15 @@
 <body>
 	<br/>
 	<div align="center">
-		<frm:form method="POST" action="reporteEnvio2">
+		<frm:form method="POST" action="ReporteEnvio2" modelAttribute="commandEnvio" commandName="commandEnvio">
 			
-			 <p align="left">
-		   	 <input type="datetime" name="fechaHora" >
-		  	 </p>
+			 <frm:label path="fechaEmisionEnvio">Fecha Emision</frm:label>
+		     <frm:input path="fechaEmisionEnvio" type ="datetime"/>
 		  	 
 			 <p align="left">
-		   	 <input type="submit" value="Ingresar" name="btnIngresar" >
+		   	 <input type="submit" value="Buscar" name="btnBuscar" >
 		  	 </p>
-		  	 
-			
+
 		</frm:form>
 
 	</div>
