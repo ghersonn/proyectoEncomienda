@@ -224,7 +224,7 @@ public class DAOEnvio {
 		ArrayList<Envio> listEnvio = new ArrayList<Envio>();
 		
 		try {
-			CallableStatement callableStatement = connection.prepareCall("{call Repore_Envio(?)}");
+			CallableStatement callableStatement = connection.prepareCall("{call REPORTE_Envio(?)}");
 			
 			callableStatement.setDate(1, new java.sql.Date(fechaEmision.getTime()));
 			ResultSet resultSet = callableStatement.executeQuery();
