@@ -3,9 +3,7 @@ package com.negocio;
 import java.util.ArrayList;
 
 import com.dao.DAOEnvio;
-import com.dao.DAORuta;
 import com.entidades.Envio;
-import com.entidades.Ruta;
 
 public class NEGEnvio {
 	//Singleton

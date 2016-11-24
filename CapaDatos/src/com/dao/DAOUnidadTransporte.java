@@ -102,5 +102,94 @@ public class DAOUnidadTransporte {
 		return objUnidadTransporte;
 	}
 	
+	
+	public Boolean insertarUnidadTransporte(UnidadTransporte objUnidadTransporte) throws Exception {
+		Connection connection = DAOConexion.Instancia().conectar();
+		Boolean respuesta=false;
+		try {
+			
+			/*
+			 * --@prmtid int
+			@prmtmatricula varchar(30)
+			,@prmtmarca varchar(20)
+			,@prmtmodelo varchar(50)
+			,@prmtidChofer int
+			--,@prmtestado bit
+			*/
+			
+			CallableStatement callableStatement = connection.prepareCall("{call REG_InsUnidadTransporte(?,?,?,?)}");
+			callableStatement.setString(1, objUnidadTransporte.getMatriculaUnidadTransporte());
+			callableStatement.setString(2, objUnidadTransporte.getMarcaUnidadTransporte());
+			callableStatement.setString(3, objUnidadTransporte.getModeloUnidadTransporte());
+			callableStatement.setInt(4, objUnidadTransporte.getChoferUnidadTransporte().getIdChofer());
+
+			int i = callableStatement.executeUpdate();
+
+			if (i > 0)	respuesta = true;
+
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			connection.close();
+		}
+		return respuesta;
+	}
+	
+	
+	public Boolean modificarUnidadTransporte(UnidadTransporte objUnidadTransporte) throws Exception {
+		Connection connection = DAOConexion.Instancia().conectar();
+		Boolean respuesta=false;
+		try {
+			/*
+			 @prmtid int
+			,@prmtmatricula varchar(30)
+			,@prmtmarca varchar(20)
+			,@prmtmodelo varchar(50)
+			,@prmtidChofer int
+			--,@prmtestado bit
+			 */
+					
+			CallableStatement callableStatement = connection.prepareCall("{call ACT_UnidadTransporte(?,?,?,?,?)}");
+			callableStatement.setInt(1, objUnidadTransporte.getIdUnidadTransporte());
+			callableStatement.setString(2, objUnidadTransporte.getMatriculaUnidadTransporte());
+			callableStatement.setString(3, objUnidadTransporte.getMarcaUnidadTransporte());
+			callableStatement.setString(4, objUnidadTransporte.getModeloUnidadTransporte());
+			callableStatement.setInt(5, objUnidadTransporte.getChoferUnidadTransporte().getIdChofer());
+
+			int i = callableStatement.executeUpdate();
+
+			if (i > 0)	respuesta = true;
+
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			connection.close();
+		}
+		return respuesta;
+	}
+	
+	
+	public Boolean eliminarUnidadTransporte(int idUnidadTransporte) throws Exception {
+		Connection connection = DAOConexion.Instancia().conectar();
+		Boolean respuesta=false;
+		try {
+			
+							
+			CallableStatement callableStatement = connection.prepareCall("{call ACT_UnidadTransporteEstado(?)}");
+			
+			callableStatement.setInt(1, idUnidadTransporte);
+
+			int i = callableStatement.executeUpdate();
+
+			if (i > 0)	respuesta= true;
+			
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			connection.close();
+		}
+		return respuesta;
+	}
+	
 	//EndMetodo
 }

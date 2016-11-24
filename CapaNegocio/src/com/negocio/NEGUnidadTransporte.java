@@ -37,6 +37,48 @@ public class NEGUnidadTransporte {
 			}
 			return objUnidadTransporte;
 		}
+	   
+	   public Boolean insertarUnidadTransporte(UnidadTransporte objUnidadTransporte) throws Exception {
+			Boolean respuesta=false;
+			try {
+				
+				for (UnidadTransporte c : DAOUnidadTransporte.Instancia().listarUnidadTransporte())
+				{
+					if (c.getMatriculaUnidadTransporte().equals(objUnidadTransporte.getMatriculaUnidadTransporte()))
+						throw new Exception("La UnidadTransporte ya existe");
+				}
+					
+				respuesta = DAOUnidadTransporte.Instancia().insertarUnidadTransporte(objUnidadTransporte);
+				
+			} catch (Exception e) {
+				throw e;
+			}
+			
+			return respuesta;
+		}
+	   
+	   public Boolean modificarUnidadTransporte(UnidadTransporte objUnidadTransporte) throws Exception {
+			
+			Boolean respuesta=false;
+			try {
+				respuesta = DAOUnidadTransporte.Instancia().modificarUnidadTransporte(objUnidadTransporte);
+			} catch (Exception e) {
+				throw e;
+			}
+			return respuesta;
+		}
+	   
+	   public Boolean eliminarUnidadTransporte(int idUnidadTransporte) throws Exception {
+			
+			Boolean respuesta=false;
+			try {
+				respuesta = DAOUnidadTransporte.Instancia().eliminarUnidadTransporte(idUnidadTransporte);
+			} catch (Exception e) {
+				throw e;
+			}
+			return respuesta;
+		}
+	   
 	   //endMetodo
 	   
 }

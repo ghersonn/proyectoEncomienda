@@ -1,11 +1,7 @@
 package com.negocio;
 
-import com.dao.DAOChofer;
 import com.dao.DAOCliente;
-import com.dao.DAORuta;
-import com.entidades.Chofer;
 import com.entidades.Cliente;
-import com.entidades.Ruta;
 
 public class NEGCliente {
 	// Singleton
