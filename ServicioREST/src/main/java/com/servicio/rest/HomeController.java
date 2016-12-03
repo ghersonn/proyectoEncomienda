@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.entidades.Envio;
+import com.negocio.NEGEnvio;
+
 /**
  * Handles requests for the application home page.
  */
@@ -38,12 +41,11 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/ListaJSON", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody ArrayList<String> ListaUsuarios2() {		
-		ArrayList<String> lista = new ArrayList<String>();
+	@RequestMapping(value = "/ListaEnvioJSON", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody ArrayList<Envio> ListaEnvio() {		
+		ArrayList<Envio> lista = new ArrayList<Envio>();
 		try {
-			lista.add("Hola");
-			lista.add("Mundo");
+			lista = NEGEnvio.Instancia().listarEnvioEstadoR();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -44,4 +44,21 @@
 		<nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>CapaDatos</name>
+			<type>2</type>
+			<location>D:/git/proyectoEncomienda/CapaDatos/src</location>
+		</link>
+		<link>
+			<name>CapaEntidades</name>
+			<type>2</type>
+			<location>D:/git/proyectoEncomienda/CapaEntidades/src</location>
+		</link>
+		<link>
+			<name>CapaNegocio</name>
+			<type>2</type>
+			<location>D:/git/proyectoEncomienda/CapaNegocio/src</location>
+		</link>
+	</linkedResources>
 </projectDescription>
