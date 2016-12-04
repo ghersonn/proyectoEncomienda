@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.entidades.Envio;
+import com.entidades.Usuario;
 import com.negocio.NEGEnvio;
+import com.negocio.NEGUsuario;
 
 /**
  * Handles requests for the application home page.
@@ -41,16 +43,45 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/ListaEnvioJSON", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody ArrayList<Envio> ListaEnvio() {		
+	@RequestMapping(value = "/ListarEnvioEstadoL", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody ArrayList<Envio> ListaEnvioL() {		
 		ArrayList<Envio> lista = new ArrayList<Envio>();
 		try {
-			lista = NEGEnvio.Instancia().listarEnvioEstadoR();
+			lista = NEGEnvio.Instancia().listarEnvioEstadoL();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return lista;
+	}
+	
+	@RequestMapping(value = "/VerificarAcceso", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody Usuario VerificarAcceso(String usu, String pass ) {		
+		 Usuario u = new Usuario();
+		try {
+			u = NEGUsuario.Instancia().VerificarAcceso(usu, pass);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return u;
+	}
+	
+	@RequestMapping(value = "/ActualizarEnvioEstadoX", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody Envio ActualizarEnvioEstadoX(int codigoEnvio) {
+		Envio en = new Envio();
+		try {
+				if(NEGEnvio.Instancia().actualizarEnvioEstadoX(codigoEnvio)){
+					en.setEstado(true);
+				}
+				else{
+					en.setEstado(false);
+				}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return en;
 	}
 	
 }

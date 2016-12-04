@@ -39,6 +39,14 @@ public class NEGEnvio {
 		}
 	}
 	
+	public ArrayList<Envio> listarEnvioEstadoL() throws Exception {
+		try {
+			return DAOEnvio.Instancia().listarEnvioEstadoL();
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+	
 	public Envio obtenerEnvio(int idEnvio) throws Exception {
 		Envio objEnvio = null;
 		try {
@@ -56,5 +64,13 @@ public class NEGEnvio {
 				throw e;
 			}
 		}
+	
+	public Boolean actualizarEnvioEstadoX(int codigoEnvio) throws Exception {
+		try {
+			return DAOEnvio.Instancia().actualizarEnvioEstadoX(codigoEnvio);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 	//endMetodos
 }

@@ -11,6 +11,7 @@ import com.entidades.Cliente;
 import com.entidades.Envio;
 import com.entidades.Paquete;
 import com.entidades.Ruta;
+import com.entidades.UnidadTransporte;
 import com.entidades.Usuario;
 
 public class DAOEnvio {
@@ -127,7 +128,7 @@ public class DAOEnvio {
 		
 		Connection connection = DAOConexion.Instancia().conectar();
 		ArrayList<Envio> listEnvio = new ArrayList<Envio>();
-
+		
 		try {
 			CallableStatement callableStatement = connection.prepareCall("{call LIS_EnvioEstadoR()}");
 			ResultSet resultSet = callableStatement.executeQuery();
@@ -159,6 +160,72 @@ public class DAOEnvio {
 				
 				Ruta objRuta = new Ruta();
 				objRuta.setIdRuta(resultSet.getInt("idRuta"));
+				
+				Envio objEnvio = new Envio();
+				objEnvio.setIdEnvio(resultSet.getInt("id"));
+				objEnvio.setCodigoGeneradoEnvio(resultSet.getInt("codigoGenerado"));
+				objEnvio.setRutaEnvio(objRuta);
+				objEnvio.setRemitenteEnvio(objRemitente);
+				objEnvio.setDestinatarioEnvio(objDestinatario);				
+				
+				listEnvio.add(objEnvio);
+				
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			connection.close();
+		}
+		return listEnvio;
+	}
+	
+public ArrayList<Envio> listarEnvioEstadoL() throws Exception{
+		
+		Connection connection = DAOConexion.Instancia().conectar();
+		ArrayList<Envio> listEnvio = new ArrayList<Envio>();
+		
+		try {
+			CallableStatement callableStatement = connection.prepareCall("{call LIS_EnvioEstadoL()}");
+			ResultSet resultSet = callableStatement.executeQuery();
+			
+			/*
+			id
+			,codigoGenerado
+			,fechaEmision
+			,fechaLlegada
+			--,fechaEntrega
+			,montoTotal
+			,estadoPago
+			,estadoEnvio
+			,estado
+			,idRemitente
+			,idDestinatario
+			,idRuta
+			--,idViaje
+			--,idUsuario
+			*/
+			
+			while (resultSet.next()) {
+				
+				Cliente objRemitente = new Cliente();
+				objRemitente.setIdCliente(resultSet.getInt("idRemitente"));
+				objRemitente.setNombreCliente(resultSet.getString("nombreRemitente"));
+				
+				Cliente objDestinatario = new Cliente();
+				objDestinatario.setIdCliente(resultSet.getInt("idDestinatario"));
+				objDestinatario.setNombreCliente(resultSet.getString("nombreDestinatario"));
+				
+				Ciudad objCiudadOrigen = new Ciudad();
+				objCiudadOrigen.setNombreCiudad("nombreCiudadOrigen");
+				
+				Ciudad objCiudadDestino =  new Ciudad();
+				objCiudadDestino.setNombreCiudad("nombreCiudadDestino");
+				
+				Ruta objRuta = new Ruta();
+				objRuta.setIdRuta(resultSet.getInt("idRuta"));
+				objRuta.setCiudadOrigen(objCiudadOrigen);
+				objRuta.setCiudadDestino(objCiudadDestino);
+				
 				
 				Envio objEnvio = new Envio();
 				objEnvio.setIdEnvio(resultSet.getInt("id"));
@@ -274,6 +341,29 @@ public class DAOEnvio {
 			connection.close();
 		}
 		return listEnvio;
+	}
+	
+	public Boolean actualizarEnvioEstadoX(int codigoEnvio) throws Exception {
+		Connection connection = DAOConexion.Instancia().conectar();
+		Boolean respuesta=false;
+		try {
+			/*
+			 @prmstrCodigoEnvio int
+			 */
+					
+			CallableStatement callableStatement = connection.prepareCall("{call ACT_EnvioEstadoX(?)}");
+			callableStatement.setInt(1, codigoEnvio);
+
+			int i = callableStatement.executeUpdate();
+
+			if (i > 0)	respuesta = true;
+
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			connection.close();
+		}
+		return respuesta;
 	}
 	
 }
