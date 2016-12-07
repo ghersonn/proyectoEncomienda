@@ -317,7 +317,7 @@ public class frmGestionarUsuario extends JInternalFrame {
 				
 				try{
 					
-					if(txtUserName.getText().equals("")){
+					/*if(txtUserName.getText().equals("")){
 						JOptionPane.showMessageDialog(null,
 						"Debe ingresar el User Name del Usuario", 
 						"Sistema Encomienda",JOptionPane.WARNING_MESSAGE);
@@ -353,7 +353,7 @@ public class frmGestionarUsuario extends JInternalFrame {
 						"Debe ingresar el Dni del usuario", 
 						"Sistema Encomienda",JOptionPane.WARNING_MESSAGE);
 						return;
-					}					
+					}	*/				
 
 					
 					
@@ -412,7 +412,7 @@ public class frmGestionarUsuario extends JInternalFrame {
 					}
 				}catch(Exception ex){
 					JOptionPane.showMessageDialog(null,
-							ex.getMessage(), "Sistema Farmacia", 
+							ex.getMessage(), "Sistema Encomienda", 
 							JOptionPane.ERROR_MESSAGE);					
 				}
 				

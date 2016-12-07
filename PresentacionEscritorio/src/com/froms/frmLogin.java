@@ -18,12 +18,13 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class frmLogin extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
-	private JTextField txtPassword;
+	private JPasswordField txtPassword;
 
 	/**
 	 * Launch the application.
@@ -56,11 +57,6 @@ public class frmLogin extends JFrame {
 		txtUsuario.setBounds(174, 88, 210, 20);
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
-		
-		txtPassword = new JTextField();
-		txtPassword.setBounds(174, 128, 210, 20);
-		contentPane.add(txtPassword);
-		txtPassword.setColumns(10);
 		
 		JLabel lblUsuario = new JLabel("USUARIO");
 		lblUsuario.setBounds(50, 91, 114, 14);
@@ -100,5 +96,9 @@ public class frmLogin extends JFrame {
 		lblSistemaDeEncomiendas.setFont(new Font("Tahoma", Font.BOLD, 19));
 		lblSistemaDeEncomiendas.setBounds(75, 28, 282, 20);
 		contentPane.add(lblSistemaDeEncomiendas);
+		
+		txtPassword = new JPasswordField();
+		txtPassword.setBounds(174, 128, 210, 20);
+		contentPane.add(txtPassword);
 	}
 }

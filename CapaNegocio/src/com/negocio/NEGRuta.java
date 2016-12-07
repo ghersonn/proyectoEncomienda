@@ -48,13 +48,7 @@ public class NEGRuta {
 			Boolean respuesta=false;
 			try {
 				
-				for (Ruta c : DAORuta.Instancia().listarRuta())
-				{
-					if (c.getCiudadOrigen().getIdCiudad()==objRuta.getCiudadOrigen().getIdCiudad()
-							&& c.getCiudadDestino().getIdCiudad()==objRuta.getCiudadDestino().getIdCiudad())
-						throw new Exception("La Ruta ya existe");
-				}
-					
+								
 				respuesta = DAORuta.Instancia().insertarRuta(objRuta);
 				
 			} catch (Exception e) {

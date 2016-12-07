@@ -153,11 +153,11 @@ public class frmGestionarRuta extends JInternalFrame {
 	}
 
 	public frmGestionarRuta() {
-		setBounds(100, 100, 537, 375);
+		setBounds(100, 100, 607, 410);
 		getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 160, 501, 108);
+		scrollPane.setBounds(10, 160, 571, 108);
 		getContentPane().add(scrollPane);
 		
 		jtlLista = new JTable();
@@ -204,7 +204,7 @@ public class frmGestionarRuta extends JInternalFrame {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBorder(new TitledBorder(null, "Datos de la Ruta", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 11, 501, 138);
+		panel.setBounds(10, 11, 571, 138);
 		getContentPane().add(panel);
 		
 		JLabel lblCiudadOrigen = new JLabel("Ciudad Origen:");
@@ -242,7 +242,7 @@ public class frmGestionarRuta extends JInternalFrame {
 		panel.add(txtPrecio);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 290, 501, 43);
+		panel_1.setBounds(10, 290, 571, 43);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -255,7 +255,7 @@ public class frmGestionarRuta extends JInternalFrame {
 				TipoEdicion="N";
 			}
 		});
-		btnNuevo.setBounds(0, 11, 71, 23);
+		btnNuevo.setBounds(0, 11, 86, 23);
 		panel_1.add(btnNuevo);
 		
 		btnEditar = new JButton("Editar");
@@ -265,7 +265,7 @@ public class frmGestionarRuta extends JInternalFrame {
 				TipoEdicion="E";
 			}
 		});
-		btnEditar.setBounds(73, 11, 71, 23);
+		btnEditar.setBounds(91, 11, 86, 23);
 		panel_1.add(btnEditar);
 		
 		btnCancelar = new JButton("Cancelar");
@@ -276,7 +276,7 @@ public class frmGestionarRuta extends JInternalFrame {
 				LimpiarFormulario();
 			}
 		});
-		btnCancelar.setBounds(337, 11, 91, 23);
+		btnCancelar.setBounds(389, 11, 91, 23);
 		panel_1.add(btnCancelar);
 		
 		//guardar
@@ -399,7 +399,7 @@ public class frmGestionarRuta extends JInternalFrame {
 				}	
 		}
 	});
-		btnGuardar.setBounds(246, 11, 81, 23);
+		btnGuardar.setBounds(288, 11, 91, 23);
 		panel_1.add(btnGuardar);
 		
 		//finguardar
@@ -440,7 +440,7 @@ public class frmGestionarRuta extends JInternalFrame {
 				}
 			}
 		});
-		btnEliminar.setBounds(154, 11, 84, 23);
+		btnEliminar.setBounds(187, 11, 91, 23);
 		panel_1.add(btnEliminar);
 		
 	    btnSalir = new JButton("Salir");
@@ -449,7 +449,7 @@ public class frmGestionarRuta extends JInternalFrame {
 				dispose();
 			}
 		});
-		btnSalir.setBounds(438, 11, 63, 23);
+		btnSalir.setBounds(490, 11, 71, 23);
 		panel_1.add(btnSalir);
 
 		//FALTA VER LA TABLA

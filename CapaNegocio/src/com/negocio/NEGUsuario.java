@@ -67,9 +67,18 @@ public class NEGUsuario {
 			
 			for (Usuario c : DAOUsuario.Instancia().listarUsuario())
 			{
-				if (c.getDniUsuario().equals(objUsuario.getDniUsuario()))
+				if (c.getDniUsuario().equals(objUsuario.getDniUsuario()) && c.getIdUsuario()!=objUsuario.getIdUsuario())
 					throw new Exception("El DNI del Usuario ya existe");
 			}
+			
+			String msj=""; Boolean verificar=false;
+			if(objUsuario.getUserNameUsuario().equals("")||objUsuario.getUserNameUsuario()==null){msj=msj+" | UserName "; verificar=true;}
+			if(objUsuario.getContraseniaUsuario().equals("")||objUsuario.getContraseniaUsuario()==null){msj=msj+" | Contraseña "; verificar=true;}
+			if(objUsuario.getNombreUsuario().equals("")||objUsuario.getNombreUsuario()==null){msj=msj+" | Nombre "; verificar=true;}
+			if(objUsuario.getApellidoUsuario().equals("")||objUsuario.getApellidoUsuario()==null){msj=msj+" | Apellido "; verificar=true;}
+			if(objUsuario.getDniUsuario().equals("")||objUsuario.getDniUsuario()==null){msj=msj+" | Dni "; verificar=true;}
+					
+			if(verificar){throw new Exception("Los datos:  "+msj+"son obligatorios.");}
 			
 			respuesta = DAOUsuario.Instancia().insertarUsuario(objUsuario);
 		} catch (Exception e) {
@@ -82,6 +91,22 @@ public class NEGUsuario {
 	public Boolean modificarUsuario(Usuario objUsuario) throws Exception {
 		Boolean respuesta=false;
 		try {
+			
+			for (Usuario c : DAOUsuario.Instancia().listarUsuario())
+			{
+				if (c.getDniUsuario().equals(objUsuario.getDniUsuario()) && c.getIdUsuario()!=objUsuario.getIdUsuario())
+					throw new Exception("El DNI del Usuario ya existe");
+			}
+			
+			String msj=""; Boolean verificar=false;
+			if(objUsuario.getUserNameUsuario().equals("")||objUsuario.getUserNameUsuario()==null){msj=msj+" | UserName "; verificar=true;}
+			if(objUsuario.getContraseniaUsuario().equals("")||objUsuario.getContraseniaUsuario()==null){msj=msj+" | Contraseña "; verificar=true;}
+			if(objUsuario.getNombreUsuario().equals("")||objUsuario.getNombreUsuario()==null){msj=msj+" | Nombre "; verificar=true;}
+			if(objUsuario.getApellidoUsuario().equals("")||objUsuario.getApellidoUsuario()==null){msj=msj+" | Apellido "; verificar=true;}
+			if(objUsuario.getDniUsuario().equals("")||objUsuario.getDniUsuario()==null){msj=msj+" | Dni "; verificar=true;}
+					
+			if(verificar){throw new Exception("Los datos:  "+msj+"son obligatorios.");}
+			
 			respuesta = DAOUsuario.Instancia().modificarUsuario(objUsuario);
 		} catch (Exception e) {
 			throw e;

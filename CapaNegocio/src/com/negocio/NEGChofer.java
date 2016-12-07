@@ -54,11 +54,19 @@ public class NEGChofer {
 				Boolean respuesta=false;
 				try {
 					
-					for (Chofer c : DAOChofer.Instancia().listarChofer())
+					for (Chofer c : DAOChofer.Instancia().listarChofer() )
 					{
-						if (c.getDniChofer().equals(objChofer.getDniChofer()))
+						if (c.getDniChofer().equals(objChofer.getDniChofer()) && c.getIdChofer()!=objChofer.getIdChofer())
 							throw new Exception("El DNI del Chofer ya existe");
 					}
+					
+					String msj=""; Boolean verificar=false;
+					
+					if(objChofer.getNombreChofer().equals("")||objChofer.getNombreChofer()==null){msj=msj+" | Nombre "; verificar=true;}
+					if(objChofer.getApellidoChofer().equals("")||objChofer.getApellidoChofer()==null){msj=msj+" | Apellido "; verificar=true;}
+					if(objChofer.getDniChofer().equals("")||objChofer.getDniChofer()==null){msj=msj+" | Dni "; verificar=true;}
+							
+					if(verificar){throw new Exception("Los datos:  "+msj+"son obligatorios.");}
 					
 					respuesta = DAOChofer.Instancia().insertarChofer(objChofer);
 				} catch (Exception e) {
@@ -71,6 +79,22 @@ public class NEGChofer {
 			public Boolean modificarChofer(Chofer objChofer) throws Exception {
 				Boolean respuesta=false;
 				try {
+					
+					for (Chofer c : DAOChofer.Instancia().listarChofer() )
+					{
+						if (c.getDniChofer().equals(objChofer.getDniChofer()) && c.getIdChofer()!=objChofer.getIdChofer())
+							throw new Exception("El DNI del Chofer ya existe");
+					}
+					
+					String msj=""; Boolean verificar=false;
+					
+					if(objChofer.getNombreChofer().equals("")||objChofer.getNombreChofer()==null){msj=msj+" | Nombre "; verificar=true;}
+					if(objChofer.getApellidoChofer().equals("")||objChofer.getApellidoChofer()==null){msj=msj+" | Apellido "; verificar=true;}
+					if(objChofer.getDniChofer().equals("")||objChofer.getDniChofer()==null){msj=msj+" | Dni "; verificar=true;}
+							
+					if(verificar){throw new Exception("Los datos:  "+msj+"son obligatorios.");}
+					
+					
 					respuesta = DAOChofer.Instancia().modificarChofer(objChofer);
 				} catch (Exception e) {
 					throw e;
