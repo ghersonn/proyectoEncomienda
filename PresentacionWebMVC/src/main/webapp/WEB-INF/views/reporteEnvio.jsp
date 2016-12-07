@@ -133,7 +133,7 @@
 					
 					 <frm:label class="col-md-2" path="fechaEmisionEnvio">Fecha Emision</frm:label>
 					 <div class="col-md-4"> 
-					 	<frm:input class="col-md-8" path="fechaEmisionEnvio" type ="datetime"/>
+					 	<frm:input placeholder="mes/dia/año" class="col-md-8" path="fechaEmisionEnvio"/>
 					 </div>
 				   	 <input class="col-md-2" type="submit" value="Buscar" name="btnBuscar" >
 				</frm:form>

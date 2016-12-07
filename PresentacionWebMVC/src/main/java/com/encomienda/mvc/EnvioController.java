@@ -65,14 +65,24 @@ public class EnvioController {
 			return "enviar";
 			
 		} catch (ArithmeticException ex) {
-			model.addAttribute("error", ex.getMessage());
-			model.addAttribute("cmdUsuario", new Usuario());
-			return "login";
+			
+			model.addAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">"+ex.getMessage()+"</div>");
+			model.addAttribute("objEnvio", e);
+			model.addAttribute("modelRemitente", e.getRemitenteEnvio());
+			model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
+			model.addAttribute("modelPaquete", new Paquete());
+			model.addAttribute("modelRuta", e.getRutaEnvio());			
+			return "enviar";
 			
 		} catch (Exception ex) {
-			model.addAttribute("error", ex.getMessage());
-			model.addAttribute("cmdUsuario", new Usuario());			
-			return "login";
+			
+			model.addAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">"+ex.getMessage()+"</div>");
+			model.addAttribute("objEnvio", e);
+			model.addAttribute("modelRemitente", e.getRemitenteEnvio());
+			model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
+			model.addAttribute("modelPaquete", new Paquete());
+			model.addAttribute("modelRuta", e.getRutaEnvio());			
+			return "enviar";
 		}
 	}
 	
@@ -92,14 +102,23 @@ public class EnvioController {
 			return "enviar";
 			
 		} catch (ArithmeticException ex) {
-			model.addAttribute("error", ex.getMessage());
-			model.addAttribute("cmdUsuario", new Usuario());
-			return "login";
+			
+			model.addAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">"+ex.getMessage()+"</div>");
+			model.addAttribute("objEnvio", e);
+			model.addAttribute("modelRemitente", e.getRemitenteEnvio());
+			model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
+			model.addAttribute("modelPaquete", new Paquete());
+			model.addAttribute("modelRuta", e.getRutaEnvio());			
+			return "enviar";
 			
 		} catch (Exception ex) {
-			model.addAttribute("error", ex.getMessage());
-			model.addAttribute("cmdUsuario", new Usuario());			
-			return "login";
+			model.addAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">"+ex.getMessage()+"</div>");
+			model.addAttribute("objEnvio", e);
+			model.addAttribute("modelRemitente", e.getRemitenteEnvio());
+			model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
+			model.addAttribute("modelPaquete", new Paquete());
+			model.addAttribute("modelRuta", e.getRutaEnvio());			
+			return "enviar";
 		}
 	}
 	
@@ -128,12 +147,7 @@ public class EnvioController {
 			@ModelAttribute("modelRuta")Ruta r, 
 			ModelMap model){
 		try {
-			
-			//Hacer busqueda de Ruta por Id
-			//if(r.getIdRuta()<=2) r.setPrecioRuta(new BigDecimal(2.00)); //Le asigno un precio temporal
-			//else r.setPrecioRuta(new BigDecimal(3.00)); //Le asigno un precio temporal
-			//e.rutaEnvio = r;
-			
+						
 			e.rutaEnvio = NEGRuta.Instancia().obtenerRuta(r.getIdRuta());
 			
 			e.actualizarPrecioPaquete(); //actalizarPrecioPaquete
@@ -148,14 +162,24 @@ public class EnvioController {
 			return "enviar";
 			
 		} catch (ArithmeticException ex) {
-			model.addAttribute("error", ex.getMessage());
-			model.addAttribute("cmdUsuario", new Usuario());
-			return "login";
+			
+			model.addAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">"+ex.getMessage()+"</div>");
+			model.addAttribute("objEnvio", e);
+			model.addAttribute("modelRemitente", e.getRemitenteEnvio());
+			model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
+			model.addAttribute("modelPaquete", new Paquete());
+			model.addAttribute("modelRuta", e.getRutaEnvio());			
+			return "enviar";
 			
 		} catch (Exception ex) {
-			model.addAttribute("error", ex.getMessage());
-			model.addAttribute("cmdUsuario", new Usuario());			
-			return "login";
+			
+			model.addAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">"+ex.getMessage()+"</div>");
+			model.addAttribute("objEnvio", e);
+			model.addAttribute("modelRemitente", e.getRemitenteEnvio());
+			model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
+			model.addAttribute("modelPaquete", new Paquete());
+			model.addAttribute("modelRuta", e.getRutaEnvio());			
+			return "enviar";
 		}
 	}
 	
@@ -171,6 +195,9 @@ public class EnvioController {
 			@ModelAttribute("modelPaquete")Paquete p, 
 			ModelMap model){
 		try {
+			
+			if(p.getPesoPaquete()==null || p.getDescripcionPaquete().equals("") || p.getFragilPaquete()==null){throw new ArithmeticException("Ingrese todos los datos del Paquete");}
+			if(e.getRutaEnvio().getIdRuta()<=0){throw new ArithmeticException("Asigne una ruta al envio");}
 			e.setAddPaquete(p);
 			e.actualizarTotal(); //actualizar Total
 			
@@ -183,14 +210,24 @@ public class EnvioController {
 			return "enviar";
 			
 		} catch (ArithmeticException ex) {
-			model.addAttribute("error", ex.getMessage());
-			model.addAttribute("cmdUsuario", new Usuario());
-			return "login";
+			
+			model.addAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">"+ex.getMessage()+"</div>");
+			model.addAttribute("objEnvio", e);
+			model.addAttribute("modelRemitente", e.getRemitenteEnvio());
+			model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
+			model.addAttribute("modelPaquete", new Paquete());
+			model.addAttribute("modelRuta", e.getRutaEnvio());			
+			return "enviar";
 			
 		} catch (Exception ex) {
-			model.addAttribute("error", ex.getMessage());
-			model.addAttribute("cmdUsuario", new Usuario());			
-			return "login";
+			
+			model.addAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">"+ex.getMessage()+"</div>");
+			model.addAttribute("objEnvio", e);
+			model.addAttribute("modelRemitente", e.getRemitenteEnvio());
+			model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
+			model.addAttribute("modelPaquete", new Paquete());
+			model.addAttribute("modelRuta", e.getRutaEnvio());			
+			return "enviar";
 		}
 	}
 	
@@ -203,11 +240,27 @@ public class EnvioController {
 			
 			//Realizar el envio
 			NEGEnvio.Instancia().enviar(e);
+			
 			//sesion usuario
-			return "principal";
+			//Limpiar campos
+			e = new Envio();
+			e.setFechaEmisionEnvio(new Date());
+			e.setRemitenteEnvio(new Cliente());
+			e.setDestinatarioEnvio(new Cliente());
+			e.setRutaEnvio(new Ruta());
+			e.setViajeEnvio(new Viaje());
+			
+			model.addAttribute("error", "<div class=\"alert alert-success\" role=\"alert\">Encomienda registrada</div>");
+			model.addAttribute("objEnvio", e);
+			model.addAttribute("modelRemitente", new Cliente());
+			model.addAttribute("modelDestinatario", new Cliente());
+			model.addAttribute("modelPaquete", new Paquete());
+			model.addAttribute("modelRuta", new Ruta());
+			
+			return "enviar";
 			
 		} catch (ArithmeticException ex) {
-			model.addAttribute("error", ex.getMessage());
+			model.addAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">"+ex.getMessage()+"</div>");
 			
 			model.addAttribute("objEnvio", e);
 			model.addAttribute("modelRemitente", e.getRemitenteEnvio());
@@ -217,7 +270,7 @@ public class EnvioController {
 			return "enviar";
 			
 		} catch (Exception ex) {
-			model.addAttribute("error", ex.getMessage());
+			model.addAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">"+ex.getMessage()+"</div>");
 			
 			model.addAttribute("modelRemitente", e.getRemitenteEnvio());
 			model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());

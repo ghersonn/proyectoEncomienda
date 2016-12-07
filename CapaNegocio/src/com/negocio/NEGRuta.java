@@ -35,6 +35,9 @@ public class NEGRuta {
 			Ruta objRuta = null;
 			try {
 				objRuta = DAORuta.Instancia().obtenerRuta(idRuta);
+				if(objRuta==null){
+					throw new ArithmeticException("seleccione una ruta existente");
+				}
 			} catch (Exception e) {
 				throw e;
 			}

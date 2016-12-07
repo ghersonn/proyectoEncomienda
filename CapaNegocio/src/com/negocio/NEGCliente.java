@@ -18,7 +18,14 @@ public class NEGCliente {
 	public Cliente obtenerClienteDNI(String dni) throws Exception {
 		Cliente objCliente = null;
 		try {
+			if(dni.equals("")||dni==null||dni.length()!=8){
+				throw new ArithmeticException("Ingrese un dni correcto");
+			}
 			objCliente = DAOCliente.Instancia().obtenerClienteDNI(dni);
+			
+			if(objCliente==null){
+				throw new ArithmeticException("Numero de dni no registrado");
+			}
 		} catch (Exception e) {
 			throw e;
 		}

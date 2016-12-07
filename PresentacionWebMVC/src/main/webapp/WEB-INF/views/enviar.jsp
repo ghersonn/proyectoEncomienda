@@ -113,7 +113,7 @@
             <li><a href="${pageContext.request.contextPath}/Principal">Principal</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="${pageContext.request.contextPath}/realizarViaje">Realizar Envio<span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href="${pageContext.request.contextPath}/realizarEnvio">Realizar Envio<span class="sr-only">(current)</span></a></li>
           </ul>
           <ul class="nav nav-sidebar">
             <li><a href="${pageContext.request.contextPath}/RegistroCliente">Registrar Cliente</a></li>
@@ -131,7 +131,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">Realizar Envio</h1>
           
-          	<h3 style="color:red" >${error}</h3>
+          	${error}
 			<frm:form method="POST" action="VerificarRemitente" modelAttribute="modelRemitente" commandName="modelRemitente">
 				<frm:label path="dniCliente">DNI Remitente</frm:label>
 				<frm:input path="dniCliente"/>
@@ -164,10 +164,10 @@
 				<frm:radiobutton path="fragilPaquete" value="false"/>No 
 				<br>
 				<frm:label path="pesoPaquete">Peso</frm:label>
-				<frm:input path="pesoPaquete"/>
+				<frm:input path="pesoPaquete" />
 				<br>
 				<frm:label path="descripcionPaquete">Descripcion</frm:label>
-				<frm:input path="descripcionPaquete"/>
+				<frm:input path="descripcionPaquete" />
 				<br>
 				<input type="submit" value="Agregar" name="btnAgregar"><br>
 			</frm:form>

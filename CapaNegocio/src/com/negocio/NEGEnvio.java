@@ -21,6 +21,10 @@ public class NEGEnvio {
 	//Metodos
 	public Boolean enviar(Envio objEnvio)throws Exception{
 		try {
+			if(objEnvio.getRemitenteEnvio().idCliente<=0){throw new ArithmeticException("Falta Remitente");}
+			if(objEnvio.getDestinatarioEnvio().idCliente<=0){throw new ArithmeticException("Falta Destinatario");}
+			if(objEnvio.getListPaquete().isEmpty()){throw new ArithmeticException("Ingrese paquetes a la lista");}
+			
 			Boolean verificar = DAOEnvio.Instancia().enviar(objEnvio);
 			if(!verificar==true){
 				throw new ArithmeticException("Error al registrar el envio!");
