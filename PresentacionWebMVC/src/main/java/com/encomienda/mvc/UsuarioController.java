@@ -1,7 +1,17 @@
 package com.encomienda.mvc;
 
+import java.io.InputStream;
 import java.lang.ProcessBuilder.Redirect;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Enumeration;
 import java.util.Locale;
+import java.util.Set;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.Servlet;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +28,7 @@ import com.negocio.NEGUsuario;
 public class UsuarioController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView home(Locale locale, Model model) {				
+	public ModelAndView home(Locale locale, Model model) {	
 		return new ModelAndView("login", "cmdUsuario", new Usuario());
 	}
 	

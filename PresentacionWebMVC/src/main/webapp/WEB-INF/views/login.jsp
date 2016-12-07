@@ -45,6 +45,10 @@
 				    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Iniciar Sesion">
 				    	</fieldset>
 			      	</frm:form>
+			      	<br>
+			      	<a href="${pageContext.request.contextPath}/resources/SistemaE.apk" class="btn btn-lg btn-default btn-block" aria-label="Left Align">
+					  <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>App Sistema Encomienda
+					</a>
 			    </div>
 			</div>
 		</div>
