@@ -50,6 +50,9 @@ public class NEGEnvio {
 	public Envio obtenerEnvio(int idEnvio) throws Exception {
 		Envio objEnvio = null;
 		try {
+			if(idEnvio<=0){
+				throw new ArithmeticException("El envio no existe");
+			}
 			objEnvio = DAOEnvio.Instancia().obtenerEnvio(idEnvio);
 		} catch (Exception e) {
 			throw e;

@@ -129,8 +129,9 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">Asignar Transporte</h1>
-          
-          	<h2> ${error} </h2>
+          	
+          	<h2>  </h2>
+          	${error}
 
 			<frm:form method="POST" action="AsignarEnvioViaje" modelAttribute="objEnvio" commandName="objEnvio">
 					<frm:select path="idEnvio">
@@ -149,7 +150,7 @@
 			</frm:form>
 			
 			<frm:form method="POST" action="GrabarViaje" modelAttribute="modelViaje" commandName="modelViaje">
-					<frm:input type="date" path="fechaEnvioViaje"/>
+					<frm:input placeholder="mes/dia/año" path="fechaEnvioViaje"/>
 					<input type="submit" value="Guardar" name="btnGuardar"><br>
 			</frm:form>
 			

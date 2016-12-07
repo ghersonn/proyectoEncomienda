@@ -37,6 +37,14 @@ public class NEGCliente {
 	
 	public boolean insertarCliente(Cliente objCliente) throws Exception {	
 		try {
+			String msj=""; Boolean verificar=false;
+			if(objCliente.getNombreCliente().equals("")||objCliente.getNombreCliente()==null){msj=msj+" Nombre "; verificar=true;}
+			if(objCliente.getApellidosCliente().equals("")||objCliente.getApellidosCliente()==null){msj=msj+" | Apellido "; verificar=true;}
+			if(objCliente.getDniCliente().equals("")||objCliente.getDniCliente()==null){msj=msj+" | Dni "; verificar=true;}
+			if(objCliente.getCelularCliente().equals("")||objCliente.getCelularCliente()==null){msj=msj+" | Celular "; verificar=true;}
+						
+			if(verificar){throw new Exception("Los datos:  "+msj+"son obligatorios.");}
+			
 		return DAOCliente.Instancia().insertarCliente(objCliente);
 	} catch (Exception e) {
 		throw e;

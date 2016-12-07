@@ -82,10 +82,6 @@ public class ViajeController {
 			ModelMap model){
 		try {
 			
-			//Hacer busqueda de Ruta por Id
-			//if(r.getIdRuta()<=2) r.setPrecioRuta(new BigDecimal(2.00)); //Le asigno un precio temporal
-			//else r.setPrecioRuta(new BigDecimal(3.00)); //Le asigno un precio temporal
-			//e.rutaEnvio = r;
 			Viaje v = e.getViajeEnvio();
 			e = NEGEnvio.Instancia().obtenerEnvio(e.getIdEnvio());
 			e.setViajeEnvio(v);
@@ -96,22 +92,52 @@ public class ViajeController {
 			model.addAttribute("objEnvio", e);
 			model.addAttribute("modelUnidadTransporte", e.getViajeEnvio().getUnidadTransporteViaje());
 			model.addAttribute("modelViaje", e.getViajeEnvio());
-			//model.addAttribute("modelRemitente", e.getRemitenteEnvio());
-			//model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
-			//model.addAttribute("modelPaquete", new Paquete());
-			//model.addAttribute("modelRuta", e.getRutaEnvio());
 			
 			return "viaje";
 			
 		} catch (ArithmeticException ex) {
-			model.addAttribute("error", ex.getMessage());
-			model.addAttribute("cmdUsuario", new Usuario());
-			return "login";
+
+			if(e==null || e.getViajeEnvio()==null){
+				e = new Envio();
+				Viaje objViaje = new Viaje();
+				objViaje.setUnidadTransporteViaje(new UnidadTransporte());
+				objViaje.setRutaViaje(new Ruta());
+				
+				e.setRutaEnvio(new Ruta());
+				e.setViajeEnvio(objViaje);
+			}
+			else if(e.getViajeEnvio().getUnidadTransporteViaje()==null){
+				e.getViajeEnvio().setUnidadTransporteViaje(new UnidadTransporte());
+			}
 			
-		} catch (Exception ex) {
-			model.addAttribute("error", ex.getMessage());
-			model.addAttribute("cmdUsuario", new Usuario());			
-			return "login";
+			model.addAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">"+ex.getMessage()+"</div>");
+			model.addAttribute("objEnvio", e);
+			model.addAttribute("modelUnidadTransporte", e.getViajeEnvio().getUnidadTransporteViaje());
+			model.addAttribute("modelViaje", e.getViajeEnvio());
+			
+			return "viaje";
+			
+		} catch (Exception ex) {			
+			
+			if(e==null || e.getViajeEnvio()==null){
+				e = new Envio();
+				Viaje objViaje = new Viaje();
+				objViaje.setUnidadTransporteViaje(new UnidadTransporte());
+				objViaje.setRutaViaje(new Ruta());
+				
+				e.setRutaEnvio(new Ruta());
+				e.setViajeEnvio(objViaje);
+			}
+			else if(e.getViajeEnvio().getUnidadTransporteViaje()==null){
+				e.getViajeEnvio().setUnidadTransporteViaje(new UnidadTransporte());
+			}
+			
+			model.addAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">"+ex.getMessage()+"</div>");
+			model.addAttribute("objEnvio", e);
+			model.addAttribute("modelUnidadTransporte", e.getViajeEnvio().getUnidadTransporteViaje());
+			model.addAttribute("modelViaje", e.getViajeEnvio());
+			
+			return "viaje";
 		}
 	}
 	
@@ -142,10 +168,6 @@ public class ViajeController {
 			ModelMap model){
 		try {
 			
-			//Hacer busqueda de Ruta por Id
-			//if(r.getIdRuta()<=2) r.setPrecioRuta(new BigDecimal(2.00)); //Le asigno un precio temporal
-			//else r.setPrecioRuta(new BigDecimal(3.00)); //Le asigno un precio temporal
-			//e.rutaEnvio = r;
 			u = NEGUnidadTransporte.Instancia().obtenerUnidadTransporte(u.getIdUnidadTransporte());
 			e.getViajeEnvio().setUnidadTransporteViaje(u);
 			
@@ -153,22 +175,50 @@ public class ViajeController {
 			model.addAttribute("objEnvio", e);
 			model.addAttribute("modelUnidadTransporte", e.getViajeEnvio().getUnidadTransporteViaje());
 			model.addAttribute("modelViaje", e.getViajeEnvio());
-			//model.addAttribute("modelRemitente", e.getRemitenteEnvio());
-			//model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());
-			//model.addAttribute("modelPaquete", new Paquete());
-			//model.addAttribute("modelRuta", e.getRutaEnvio());
 			
 			return "viaje";
 			
 		} catch (ArithmeticException ex) {
-			model.addAttribute("error", ex.getMessage());
-			model.addAttribute("cmdUsuario", new Usuario());
-			return "login";
+			if(e==null || e.getViajeEnvio()==null){
+				e = new Envio();
+				Viaje objViaje = new Viaje();
+				objViaje.setUnidadTransporteViaje(new UnidadTransporte());
+				objViaje.setRutaViaje(new Ruta());
+				
+				e.setRutaEnvio(new Ruta());
+				e.setViajeEnvio(objViaje);
+			}
+			else if(e.getViajeEnvio().getUnidadTransporteViaje()==null){
+				e.getViajeEnvio().setUnidadTransporteViaje(new UnidadTransporte());
+			}
+			
+			model.addAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">"+ex.getMessage()+"</div>");
+			model.addAttribute("objEnvio", e);
+			model.addAttribute("modelUnidadTransporte", e.getViajeEnvio().getUnidadTransporteViaje());
+			model.addAttribute("modelViaje", e.getViajeEnvio());
+			
+			return "viaje";
 			
 		} catch (Exception ex) {
-			model.addAttribute("error", ex.getMessage());
-			model.addAttribute("cmdUsuario", new Usuario());			
-			return "login";
+			if(e==null || e.getViajeEnvio()==null){
+				e = new Envio();
+				Viaje objViaje = new Viaje();
+				objViaje.setUnidadTransporteViaje(new UnidadTransporte());
+				objViaje.setRutaViaje(new Ruta());
+				
+				e.setRutaEnvio(new Ruta());
+				e.setViajeEnvio(objViaje);
+			}
+			else if(e.getViajeEnvio().getUnidadTransporteViaje()==null){
+				e.getViajeEnvio().setUnidadTransporteViaje(new UnidadTransporte());
+			}
+			
+			model.addAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">"+ex.getMessage()+"</div>");
+			model.addAttribute("objEnvio", e);
+			model.addAttribute("modelUnidadTransporte", e.getViajeEnvio().getUnidadTransporteViaje());
+			model.addAttribute("modelViaje", e.getViajeEnvio());
+			
+			return "viaje";
 		}
 	}
 	
@@ -194,7 +244,7 @@ public class ViajeController {
 				ee.setRutaEnvio(new Ruta());
 				ee.setViajeEnvio(objViaje);
 				
-				model.addAttribute("error", "Se registro el envio");
+				model.addAttribute("error", "<div class=\"alert alert-success\" role=\"alert\">Se asigno transporte</div>");
 				model.addAttribute("objEnvio", ee);
 				model.addAttribute("modelViaje", new Viaje());
 				model.addAttribute("modelUnidadTransporte", new UnidadTransporte());
@@ -204,7 +254,7 @@ public class ViajeController {
 				model.addAttribute("modelUnidadTransporte", e.getViajeEnvio().getUnidadTransporteViaje());
 				model.addAttribute("modelViaje", e.getViajeEnvio());
 				
-				model.addAttribute("error", "ERROR al registrar el envio");
+				model.addAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">Error al asignar transporte</div>");
 			}
 			//model.addAttribute("modelRemitente", e.getRemitenteEnvio());
 			//model.addAttribute("modelDestinatario", e.getDestinatarioEnvio());

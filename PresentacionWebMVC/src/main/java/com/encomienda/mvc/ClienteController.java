@@ -25,22 +25,24 @@ public class ClienteController {
 	
 	
 	@RequestMapping(value = "/registrarCliente2", method = RequestMethod.POST)
-	public String RegistrarUsuario(@ModelAttribute("SpringWeb")Cliente objCliente, 
+	public String RegistrarCliente(@ModelAttribute("SpringWeb")Cliente objCliente, 
 								ModelMap model){
 		try {
 						
 			NEGCliente.Instancia().insertarCliente(objCliente);
 			
 			model.addAttribute("command", new Cliente());
-			return "principal";
+			return "registrarCliente";
 		
 		} catch (ArithmeticException e) {
-			model.addAttribute("error", e.getMessage());
+			model.addAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">"+ e.getMessage()+"</div>");
 			model.addAttribute("command", new Cliente());
-			return "principal";
+			return "registrarCliente";
+			
 		} catch (Exception e) {
-			model.addAttribute("error", e.getMessage());
-			return "Error";
+			model.addAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">"+ e.getMessage()+"</div>");
+			model.addAttribute("command", new Cliente());
+			return "registrarCliente";
 		}
 	}
 }

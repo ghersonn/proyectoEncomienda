@@ -31,6 +31,9 @@ public class NEGUnidadTransporte {
 	   public UnidadTransporte obtenerUnidadTransporte(int idUnidadTransporte) throws Exception {
 			UnidadTransporte objUnidadTransporte = null;
 			try {
+				if(idUnidadTransporte<=0){
+					throw new ArithmeticException("La unidad de transporte no existe");
+				}
 				objUnidadTransporte = DAOUnidadTransporte.Instancia().obtenerUnidadTransporte(idUnidadTransporte);
 			} catch (Exception e) {
 				throw e;
