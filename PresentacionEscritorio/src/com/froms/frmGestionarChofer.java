@@ -283,33 +283,33 @@ private void LimpiarFormulario(){
 				
 				try{
 									
-					if(txtNombre.getText().equals("")){
+					/*if(txtNombre.getText().equals("")){
 						JOptionPane.showMessageDialog(null,
-						"Debe ingresar el nombre del usuario", 
+						"Debe ingresar el nombre del Chofer", 
 						"Sistema Encomienda",JOptionPane.WARNING_MESSAGE);
 						return;
 					}
 					if(txtApellido.getText().equals("")){
 						JOptionPane.showMessageDialog(null,
-						"Debe ingresar el apellido del usuario", 
+						"Debe ingresar el apellido del Chofer", 
 						"Sistema Encomienda",JOptionPane.WARNING_MESSAGE);
 						return;
 					}					
 					if(txtTelefono.getText().equals("")){
 						JOptionPane.showMessageDialog(null,
-						"Debe ingresar el telefono del usuario", 
+						"Debe ingresar el telefono del Chofer", 
 						"Sistema Encomienda",JOptionPane.WARNING_MESSAGE);
 						return;
 					}
 					if(txtDni.getText().equals("")){
 						JOptionPane.showMessageDialog(null,
-						"Debe ingresar el Dni del usuario", 
+						"Debe ingresar el Dni del Chofer", 
 						"Sistema Encomienda",JOptionPane.WARNING_MESSAGE);
 						return;
-					}	
+					}	*/
 					
 					if(TipoEdicion.equals("N")){
-						//guardar el usuario
+						//guardar el Chofer
 						Chofer c = new Chofer();
 						c.setNombreChofer(txtNombre.getText());
 						c.setApellidoChofer(txtApellido.getText());
@@ -329,7 +329,7 @@ private void LimpiarFormulario(){
 							"Sistema Encomienda",JOptionPane.OK_OPTION);
 						}
 					}else{
-						//editar el usuario
+						//editar el Chofer
 						
 						jtlLista.enable(false);
 						int fila = jtlLista.getSelectedRow();
@@ -358,7 +358,7 @@ private void LimpiarFormulario(){
 					}
 				}catch(Exception ex){
 					JOptionPane.showMessageDialog(null,
-							ex.getMessage(), "Sistema Farmacia", 
+							ex.getMessage(), "Sistema Encomienda", 
 							JOptionPane.ERROR_MESSAGE);					
 				}
 				
