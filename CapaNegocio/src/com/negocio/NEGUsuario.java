@@ -67,7 +67,7 @@ public class NEGUsuario {
 			
 			for (Usuario c : DAOUsuario.Instancia().listarUsuario())
 			{
-				if (c.getDniUsuario().equals(objUsuario.getDniUsuario()) && c.getIdUsuario()!=objUsuario.getIdUsuario())
+				if (c.getDniUsuario().equals(objUsuario.getDniUsuario()))
 					throw new Exception("El DNI del Usuario ya existe");
 			}
 			

@@ -216,10 +216,10 @@ public ArrayList<Envio> listarEnvioEstadoL() throws Exception{
 				objDestinatario.setNombreCliente(resultSet.getString("nombreDestinatario"));
 				
 				Ciudad objCiudadOrigen = new Ciudad();
-				objCiudadOrigen.setNombreCiudad("nombreCiudadOrigen");
+				objCiudadOrigen.setNombreCiudad(resultSet.getString("nombreCiudadOrigen"));
 				
 				Ciudad objCiudadDestino =  new Ciudad();
-				objCiudadDestino.setNombreCiudad("nombreCiudadDestino");
+				objCiudadDestino.setNombreCiudad(resultSet.getString("nombreCiudadDestino"));
 				
 				Ruta objRuta = new Ruta();
 				objRuta.setIdRuta(resultSet.getInt("idRuta"));
